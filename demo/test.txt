@@ -1,2 +1,11 @@
 Starting task Fuzz...
 Using python: 'python3' (Python 3.9.7)
+Request coverage (successful / total): 6 / 6
+Bugs were found!
+Bug buckets:
+
+InvalidDynamicObjectChecker_20x: 2
+InvalidDynamicObjectChecker_500: 1
+PayloadBodyChecker_500: 1
+Task Fuzz succeeded.
+Collecting logs...

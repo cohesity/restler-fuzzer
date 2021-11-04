@@ -1,0 +1,12 @@
+  Final_spec_coverage: 6 / 6
+  Rendered_requests: 6 / 6
+  Rendered_requests_valid_status: 6 / 6
+  Num_fully_valid: 6
+  Num_sequence_failures: 0
+  Num_invalid_by_failed_resource_creations: 0
+  Total_object_creations: 8
+  Total_requests_sent: 
+    Gc: 4
+    Main_driver: 9
+  Bug_buckets: 
+  Reproducible_bug_buckets: 
