@@ -1,0 +1,24 @@
+  Final_spec_coverage: 6 / 6
+  Rendered_requests: 6 / 6
+  Rendered_requests_valid_status: 6 / 6
+  Num_fully_valid: 6
+  Num_sequence_failures: 0
+  Num_invalid_by_failed_resource_creations: 0
+  Total_object_creations: 34
+  Total_requests_sent: 
+    Gc: 17
+    Main_driver: 9
+    LeakageRuleChecker: 0
+    ResourceHierarchyChecker: 0
+    UseAfterFreeChecker: 1
+    InvalidDynamicObjectChecker: 48
+    PayloadBodyChecker: 62
+    ExamplesChecker: 0
+  Bug_buckets: 
+    InvalidDynamicObjectChecker_20x: 2
+    InvalidDynamicObjectChecker_500: 1
+    PayloadBodyChecker_500: 1
+  Reproducible_bug_buckets: 
+    InvalidDynamicObjectChecker_20x: 2
+    InvalidDynamicObjectChecker_500: 1
+    PayloadBodyChecker_500: 1
