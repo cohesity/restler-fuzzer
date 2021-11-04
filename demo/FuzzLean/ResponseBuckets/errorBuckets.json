@@ -1,0 +1,1629 @@
+{
+  "400": {
+    "01a44691-7e70-459e-bd6d-1fc909e537a5": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"checksum\":false}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\",\n        \"checksum\": \"False is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "1811fb96-aca1-4d8b-8625-7d9a1956f600": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"body\":[]}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"[] is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"body\":[]}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"[] is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":5873,\"body\":[]}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"[] is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "204c6882-4322-47f3-9963-11499efb5499": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":false,\"checksum\":\"fuzzstring\",\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"id\": \"False is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":false}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\",\n        \"id\": \"False is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":false,\"body\":\"fuzzstring\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"id\": \"False is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "30d07d31-3a10-4506-ad5f-3446a13d019d": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "",
+            "path": "",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"The browser (or proxy) sent a request that this server could not understand.\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "DELETE",
+            "path": "/api/blog/posts/5874",
+            "query": "injected_query_string=123",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"The browser (or proxy) sent a request that this server could not understand.\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "3ad31082-a01a-478d-b728-464f1360bb42": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"body\":{ \"fuzz\" : false }}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"{\\'fuzz\\': False} is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"body\":{ \"fuzz\" : false }}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"{\\'fuzz\\': False} is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":5873,\"body\":{ \"fuzz\" : false }}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"{\\'fuzz\\': False} is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "3bf5ce32-5500-45b3-b920-7c9eecef4ad0": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876/5876,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting \\',\\' delimiter: line 2 column 14 (char 15)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876/5876,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog/first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting \\',\\' delimiter: line 2 column 14 (char 15)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876??,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting \\',\\' delimiter: line 2 column 14 (char 15)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "",
+            "path": "",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting \\',\\' delimiter: line 2 column 14 (char 15)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876??,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog??\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting \\',\\' delimiter: line 2 column 14 (char 15)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "",
+            "path": "",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting \\',\\' delimiter: line 2 column 14 (char 15)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876/?/,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting \\',\\' delimiter: line 2 column 14 (char 15)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876/?/,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog/?/\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting \\',\\' delimiter: line 2 column 14 (char 15)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876?injected_query_string=123,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting \\',\\' delimiter: line 2 column 14 (char 15)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "injected_query_string=123",
+            "body": "{\n    \"id\":5876?injected_query_string=123,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting \\',\\' delimiter: line 2 column 14 (char 15)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "422c6758-1882-41e4-8ae6-fbbd9086ad44": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":,\"checksum\":[],\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting value: line 1 column 7 (char 6)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":,\"checksum\":\"fuzzstring\",\"body\":false}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting value: line 1 column 7 (char 6)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":,\"checksum\":false,\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting value: line 1 column 7 (char 6)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":,\"checksum\":\"fuzzstring\",\"body\":0}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting value: line 1 column 7 (char 6)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":,\"checksum\":\"fuzzstring\",\"body\":[]}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting value: line 1 column 7 (char 6)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":,\"checksum\":0,\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting value: line 1 column 7 (char 6)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":,\"checksum\":{ \"fuzz\" : false },\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting value: line 1 column 7 (char 6)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":,\"checksum\":\"fuzzstring\",\"body\":{ \"fuzz\" : false }}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting value: line 1 column 7 (char 6)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5877",
+            "query": "",
+            "body": "{\"id\":}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting value: line 1 column 7 (char 6)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5877",
+            "query": "",
+            "body": "{\"id\":,\"checksum\":\"fuzzstring\",\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"message\": \"Failed to decode JSON object: Expecting value: line 1 column 7 (char 6)\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "430dd584-9447-4e61-ae17-63d8f0b00876": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"body\":0}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"0 is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"body\":0}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"0 is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":5873,\"body\":0}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"0 is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "56fc8a95-7b14-4a08-9cc0-6b6910de3227": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"checksum\":[]}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\",\n        \"checksum\": \"[] is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "69c3479a-aa11-4054-8c68-90642a608a3e": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "\"fuzzstring\""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"\": \"\\'fuzzstring\\' is not of type \\'object\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "0"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"\": \"0 is not of type \\'object\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "[]"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"\": \"[] is not of type \\'object\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "false"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"\": \"False is not of type \\'object\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "[]"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"\": \"[] is not of type \\'object\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "0"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"\": \"0 is not of type \\'object\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "\"fuzzstring\""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"\": \"\\'fuzzstring\\' is not of type \\'object\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "false"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"\": \"False is not of type \\'object\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "6e2b13ee-c171-4e5c-ac05-fe75675e9cbc": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":{ \"fuzz\" : false },\"checksum\":\"fuzzstring\",\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"id\": \"{\\'fuzz\\': False} is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":{ \"fuzz\" : false }}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\",\n        \"id\": \"{\\'fuzz\\': False} is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":{ \"fuzz\" : false },\"body\":\"fuzzstring\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"id\": \"{\\'fuzz\\': False} is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "7c5d1719-dd2e-4520-a810-4ff72f47c386": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":\"fuzzstring\",\"checksum\":\"fuzzstring\",\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"id\": \"\\'fuzzstring\\' is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":\"fuzzstring\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\",\n        \"id\": \"\\'fuzzstring\\' is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":\"fuzzstring\",\"body\":\"fuzzstring\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"id\": \"\\'fuzzstring\\' is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "7e243418-fcd7-4838-ad7b-b4f6f0fe9543": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"checksum\":0}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\",\n        \"checksum\": \"0 is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "8f44cda4-b39b-4c77-81ab-44458cd6c360": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "",
+            "body": "{\n    \"id\":{},\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"id\": \"{} is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "",
+            "body": "{\n    \"id\":{},\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"{}\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"id\": \"{} is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "9c49db31-4f3d-44a1-af1f-c3af5245507d": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"checksum\":{ \"fuzz\" : false }}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\",\n        \"checksum\": \"{\\'fuzz\\': False} is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "a0f86664-57c9-4c2f-9c8d-79e2997bd651": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"id\":[],\"checksum\":\"fuzzstring\",\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"id\": \"[] is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":[]}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\",\n        \"id\": \"[] is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":[],\"body\":\"fuzzstring\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"id\": \"[] is not of type \\'integer\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "c8af1f95-1bc4-4b5a-91dd-252feb28fcae": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{\"body\":false}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"False is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"body\":false}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"False is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":5873,\"body\":false}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"False is not of type \\'string\\'\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "d66d829c-7442-436f-8d64-6078fc016f3f": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5879",
+            "query": "",
+            "body": "{ \"fuzz\" : false }"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5877",
+            "query": "",
+            "body": "{\"checksum\":\"fuzzstring\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{ \"fuzz\" : false }"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/api/blog/posts",
+            "query": "",
+            "body": "{\"id\":5873}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\n    \"errors\": {\n        \"body\": \"\\'body\\' is a required property\"\n    },\n    \"message\": \"Input payload validation failed\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ]
+  },
+  "404": {
+    "53bd031a-abf1-451c-9fb8-f12d1560a474": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/api/blog/posts/5874",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "{\n    \"message\": \"The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.\"\n}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "b43a9a49-376e-486b-b2ae-de8a8822ad66": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/{}",
+            "query": "",
+            "body": "{\n    \"id\":5876,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"{}\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n        \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n    <head>\n        <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">\n        <title>Error response</title>\n    </head>\n    <body>\n        <h1>Error response</h1>\n        <p>Error code: 400</p>\n        <p>Message: Bad request syntax (\\'{\\').</p>\n        <p>Error code explanation: HTTPStatus.BAD_REQUEST - Bad request syntax or unsupported method.</p>\n    </body>\n</html>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/{}",
+            "query": "",
+            "body": "{\n    \"id\":{},\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"{}\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n        \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n    <head>\n        <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">\n        <title>Error response</title>\n    </head>\n    <body>\n        <h1>Error response</h1>\n        <p>Error code: 400</p>\n        <p>Message: Bad request syntax (\\'{\\').</p>\n        <p>Error code explanation: HTTPStatus.BAD_REQUEST - Bad request syntax or unsupported method.</p>\n    </body>\n</html>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "=/",
+            "body": "{\n    \"id\":5876/?/,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n        \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n    <head>\n        <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">\n        <title>Error response</title>\n    </head>\n    <body>\n        <h1>Error response</h1>\n        <p>Error code: 400</p>\n        <p>Message: Bad request syntax (\\'{\\').</p>\n        <p>Error code explanation: HTTPStatus.BAD_REQUEST - Bad request syntax or unsupported method.</p>\n    </body>\n</html>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "=/",
+            "body": "{\n    \"id\":5876/?/,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog/?/\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n        \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n    <head>\n        <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">\n        <title>Error response</title>\n    </head>\n    <body>\n        <h1>Error response</h1>\n        <p>Error code: 400</p>\n        <p>Message: Bad request syntax (\\'{\\').</p>\n        <p>Error code explanation: HTTPStatus.BAD_REQUEST - Bad request syntax or unsupported method.</p>\n    </body>\n</html>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "d58fe78a-1e4e-4632-bc15-2e46fae0889b": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/api/blog/posts/{}",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/api/blog/posts/5881/5881",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/api/blog/posts/5881",
+            "query": "=/",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/{}",
+            "query": "",
+            "body": "{\n    \"id\":5876,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/{}",
+            "query": "",
+            "body": "{\n    \"id\":{},\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876/5876,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog/first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876/5876",
+            "query": "",
+            "body": "{\n    \"id\":5876/5876,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog/first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5876",
+            "query": "=/",
+            "body": "{\n    \"id\":5876,\n    \"checksum\":\"fuzzstring\",\n    \"body\":\"first blog\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ]
+  },
+  "500": {
+    "9d6aa1ac-2d19-4de5-8c14-e3dfae49be7e": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "",
+            "path": "",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 500,
+            "codeDescription": "INTERNAL SERVER ERROR",
+            "content": "{\n    \"message\": \"The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.\"\n}\n",
+            "isFailure": true,
+            "isBug": true
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "",
+            "path": "",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 500,
+            "codeDescription": "INTERNAL SERVER ERROR",
+            "content": "{\n    \"message\": \"The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.\"\n}\n",
+            "isFailure": true,
+            "isBug": true
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5877",
+            "query": "",
+            "body": "{\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 500,
+            "codeDescription": "INTERNAL SERVER ERROR",
+            "content": "{\n    \"message\": \"The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.\"\n}\n",
+            "isFailure": true,
+            "isBug": true
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/api/blog/posts/5877",
+            "query": "",
+            "body": "{\"body\":\"first blog\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 500,
+            "codeDescription": "INTERNAL SERVER ERROR",
+            "content": "{\n    \"message\": \"The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.\"\n}\n",
+            "isFailure": true,
+            "isBug": true
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+################################################################################
+ InvalidDynamicObjectChecker_20x
+
+ Hash: InvalidDynamicObjectChecker_20x_2a08860359faed021f94c2d983677de6f3da4d26
+
+ To attempt to reproduce this bug using restler, run restler with the command
+ line option of --replay_log <path_to_this_log>.
+ If an authentication token is required, you must also specify the token_refresh_cmd.
+
+ This log may contain specific values for IDs or names that were generated
+ during fuzzing, using the fuzzing dictionary. Such names will be re-played
+ without modification. You must update the replay log manually with any changes
+ required to execute the requests in your environment (for example, replacing
+ pre-created account, subscription, or other resource IDs, as needed).
+################################################################################
+
+-> POST /api/blog/posts HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:8888\r\ncorrelation_id: 6b964965a473447096360ce9a6af167e\r\nclient_id: fuzzstring\r\nContent-Type: application/json\r\n\r\n{\n    "id":123,\n    "body":"first blog"}\r\n
+! producer_timing_delay 0
+! max_async_wait_time 20
+PREVIOUS RESPONSE: 'HTTP/1.1 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 45\r\nServer: Werkzeug/0.16.0 Python/3.9.7\r\nDate: Thu, 04 Nov 2021 13:56:24 GMT\r\n\r\n{\n    "id": 5876,\n    "body": "first blog"\n}\n'
+
+-> PUT /api/blog/posts/5876?injected_query_string=123 HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:8888\r\nContent-Type: application/json\r\n\r\n{\n    "id":5876,\n    "checksum":"fuzzstring",\n    "body":"first blog?injected_query_string=123"}\r\n
+! producer_timing_delay 0
+! max_async_wait_time 0
+PREVIOUS RESPONSE: 'HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: 5\r\nServer: Werkzeug/0.16.0 Python/3.9.7\r\nDate: Thu, 04 Nov 2021 13:56:24 GMT\r\n\r\nnull\n'
+

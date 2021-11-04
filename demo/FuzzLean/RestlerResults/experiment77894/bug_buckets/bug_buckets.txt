@@ -1,0 +1,25 @@
+InvalidDynamicObjectChecker_20x: 2
+PayloadBodyChecker_500: 1
+InvalidDynamicObjectChecker_500: 1
+Total Buckets: 4
+-------------
+InvalidDynamicObjectChecker_20x - Bug was reproduced - InvalidDynamicObjectChecker_20x_1.txt
+Hash: InvalidDynamicObjectChecker_20x_2a08860359faed021f94c2d983677de6f3da4d26
+POST /api/blog/posts HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:8888\r\ncorrelation_id: 566048da-ed19-4cd3-8e0a-b7e0e1ec4d72\r\nclient_id: fuzzstring\r\nContent-Type: application/json\r\n\r\n{\n    "id":1,\n    "body":fuzzstring}\r\n
+PUT /api/blog/posts/_READER_DELIM_blog_posts_post_id_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:8888\r\nContent-Type: application/json\r\n\r\n{\n    "id":_READER_DELIM_blog_posts_post_id_READER_DELIM,\n    "checksum":fuzzstring,\n    "body":_READER_DELIM_blog_posts_post_body_READER_DELIM}\r\n
+--------------------------------------------------------------------------------
+InvalidDynamicObjectChecker_20x - Bug was reproduced - InvalidDynamicObjectChecker_20x_2.txt
+Hash: InvalidDynamicObjectChecker_20x_ea52f02d3d402e959fd26092a215f80c0d3afb44
+POST /api/blog/posts HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:8888\r\ncorrelation_id: 566048da-ed19-4cd3-8e0a-b7e0e1ec4d72\r\nclient_id: fuzzstring\r\nContent-Type: application/json\r\n\r\n{\n    "id":1,\n    "body":fuzzstring}\r\n
+GET /api/blog/posts/_READER_DELIM_blog_posts_post_id_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:8888\r\n\r\n
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_1.txt
+Hash: PayloadBodyChecker_500_42d09e27ee50a67d4371df9a3d65e9ca376afc9f
+POST /api/blog/posts HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:8888\r\ncorrelation_id: 566048da-ed19-4cd3-8e0a-b7e0e1ec4d72\r\nclient_id: fuzzstring\r\nContent-Type: application/json\r\n\r\n{\n    "id":1,\n    "body":fuzzstring}\r\n
+PUT /api/blog/posts/_READER_DELIM_blog_posts_post_id_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:8888\r\nContent-Type: application/json\r\n\r\n{"body":"_READER_DELIM_blog_posts_post_body_READER_DELIM"}
+--------------------------------------------------------------------------------
+InvalidDynamicObjectChecker_500 - Bug was reproduced - InvalidDynamicObjectChecker_500_1.txt
+Hash: InvalidDynamicObjectChecker_500_ea52f02d3d402e959fd26092a215f80c0d3afb44
+POST /api/blog/posts HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:8888\r\ncorrelation_id: 566048da-ed19-4cd3-8e0a-b7e0e1ec4d72\r\nclient_id: fuzzstring\r\nContent-Type: application/json\r\n\r\n{\n    "id":1,\n    "body":fuzzstring}\r\n
+GET /api/blog/posts/_READER_DELIM_blog_posts_post_id_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:8888\r\n\r\n
+--------------------------------------------------------------------------------
