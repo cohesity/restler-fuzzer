@@ -1,0 +1,20 @@
+  SwaggerSpecFilePath: 
+    - /Users/ivan.mudarth/restler-fuzzer/demo/swagger.json
+  GrammarOutputDirectoryPath: /Users/ivan.mudarth/restler-fuzzer/demo/Compile
+  CustomDictionaryFilePath: /Users/ivan.mudarth/restler-fuzzer/demo/Compile/defaultDict.json
+  IncludeOptionalParameters: True
+  UseHeaderExamples: True
+  UsePathExamples: False
+  UseQueryExamples: True
+  UseBodyExamples: True
+  UseAllExamplePayloads: False
+  DiscoverExamples: False
+  ExamplesDirectory: 
+  DataFuzzing: True
+  ReadOnlyFuzz: False
+  ResolveQueryDependencies: True
+  ResolveBodyDependencies: True
+  ResolveHeaderDependencies: False
+  UseRefreshableToken: True
+  AllowGetProducers: False
+  TrackFuzzedParameterNames: False

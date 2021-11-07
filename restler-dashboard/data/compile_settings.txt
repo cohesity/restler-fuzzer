@@ -1,0 +1,2 @@
+  Per_resource_settings: 
+  Max_combinations: 20
