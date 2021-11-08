@@ -37,11 +37,15 @@ set_config() {
     fi
     rm cli-config.txt
     mv ${temp_file} cli-config.txt
+    printf "${param} has been set to ${value} \n\n"
 }
 
-# run_process() {
+run_process() {
+    process=${1}
+    printf "Starting ${process}...\n"
 
-# }
+    printf "${process} finished.\n\n"
+}
 
 if [ ${1} = "set" -a ${#} -ge 2 -a ${#} -le 7 ]; then
     n=${#}
@@ -54,6 +58,9 @@ if [ ${1} = "set" -a ${#} -ge 2 -a ${#} -le 7 ]; then
             for p in ${params[@]}; do
                 len=${#p}
                 if [ ${arg:0:${len}} = ${p} ]; then
+                    if [ ! ${arg:${len}:1} = "=" ]; then 
+                        usage 
+                    fi
                     found=true
                     break
                 fi
@@ -74,7 +81,6 @@ if [ ${1} = "set" -a ${#} -ge 2 -a ${#} -le 7 ]; then
             if [ ${arg:0:${len}} = ${p} ]; then
                 value=${arg:${len} + 1}
                 set_config ${p} ${value}
-                printf "${p} has been set to ${value} \n"
                 break
             fi
         done
@@ -104,15 +110,18 @@ elif [ ${1} = "run" -a ${#} -ge 2 -a ${#} -le 5 ]; then
     # Run specified process(es)
     for (( x=2; x <= n; x++ )) ; do 
         if [ ${!x} = "--all" ]; then
-            echo "a"
+            run_process "Compile"
+            run_process "Test"
+            run_process "Fuzz-lean"
+            run_process "Fuzz"
         elif [ ${!x} = "--compile" ]; then
-            echo "b"
+            run_process "Compile"
         elif [ ${!x} = "--test" ]; then
-            echo "c"
+            run_process "Test"
         elif [ ${!x} = "--fuzzlean" ]; then
-            echo "d"
+            run_process "Fuzz-lean"
         elif [ ${!x} = "--fuzz" ]; then
-            echo "e"
+            run_process "Fuzz"
         fi
     done
 else
