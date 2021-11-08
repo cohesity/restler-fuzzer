@@ -1,0 +1,6 @@
+api_spec=NULL
+grammar_file=NULL
+dictionary_file=NULL
+settings_file=NULL
+token_refresh_command=NULL
+token_refresh_interval=NULL

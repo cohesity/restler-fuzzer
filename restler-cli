@@ -1,18 +1,68 @@
 #!/bin/bash 
 
 usage() {
-    printf "Usage:\n\n"
+    printf "\nUsage:\n\n"
     printf "./restler-cli set [--api_spec=STRING] [--grammar_file=STRING] [--dictionary_file=STRING]  \ \n"
-    printf "                  [--settings_file=STRING] [--token_refresh_command=STRING] [--token_refresh_interval=INT_SECS] \n\n"
+    printf "                  [--settings_file=STRING] [--token_refresh_command=STRING] [--token_refresh_interval=INT_SECS] \n"
+    printf "NOTE: set an argument to NULL to exclude it from \n\n"
     printf "OR \n\n"
-    printf "./restler-cli run [--all] | [--compile] [--test] [--fuzzlean] [--fuzz] \n"
+    printf "./restler-cli run [--all] | [--compile] [--test] [--fuzzlean] [--fuzz] \n\n"
     exit 1
 }
 
+set_config() {
+    param=${1}
+    value=${2}
+    temp_file="cli-config-temp.txt"
+    if [ -e ${temp_file} ]; then
+        rm ${temp_file}
+    fi
+    touch ${temp_file}
+    found=false
+    while read line; do 
+        len=${#param}
+        if [ ${line:0:${len}} = ${param} ]; then
+            found=true
+            new_line="${param}=${value}"
+            echo ${new_line} >> ${temp_file} 
+        else
+            echo ${line} >> ${temp_file}
+        fi 
+    done < "cli-config.txt"
+    if [ ${found} = false ]; then
+        found=true
+        new_line="${param}=${value}"
+        echo ${new_line} >> ${temp_file} 
+    fi
+    rm cli-config.txt
+    mv ${temp_file} cli-config.txt
+}
 
-if [ ${1} = "set" ]; then
-    echo "hiii"
-elif [ ${1} = "run" ]; then
+if [ ${1} = "set" -a ${#} -ge 2 -a ${#} -le 7 ]; then
+    n=${#}
+    for (( x=2; x <= n; x++ )) ; do
+        if [ ${!x:0:2} = "--" ]; then
+            arg=${!x:2}
+            params=( "api_spec" "grammar_file" "dictionary_file" "settings_file" "token_refresh_command" "token_refresh_interval" )
+            found=false
+            for p in ${params[@]}; do
+                len=${#p}
+                if [ ${arg:0:${len}} = ${p} ]; then
+                    found=true
+                    value=${arg:${len} + 1}
+                    set_config ${p} ${value}
+                    echo "${p} has been set to ${value}"
+                    break
+                fi
+            done
+            if [ ${found} = false ]; then
+                usage
+            fi
+        else 
+            usage
+        fi
+    done
+elif [ ${1} = "run" -a ${#} -ge 2 -a ${#} -le 5 ]; then
     echo "byeee"
 else
     usage
