@@ -4,9 +4,10 @@ usage() {
     printf "\nUsage:\n\n"
     printf "./restler-cli set [--api_spec=STRING] [--grammar_file=STRING] [--dictionary_file=STRING]  \ \n"
     printf "                  [--settings_file=STRING] [--token_refresh_command=STRING] [--token_refresh_interval=INT_SECS] \n"
-    printf "NOTE: set an argument to NULL to exclude it from \n\n"
+    printf "NOTE: set an argument to NULL to exclude it from. \n\n"
     printf "OR \n\n"
-    printf "./restler-cli run [--all] | [--compile] [--test] [--fuzzlean] [--fuzz] \n\n"
+    printf "./restler-cli run [--all] | [--compile] [--test] [--fuzzlean] [--fuzz] \n"
+    printf "NOTE: the --all flag must be run alone and there may not be duplicate flags. \n\n" 
     exit 1
 }
 
@@ -38,8 +39,13 @@ set_config() {
     mv ${temp_file} cli-config.txt
 }
 
+# run_process() {
+
+# }
+
 if [ ${1} = "set" -a ${#} -ge 2 -a ${#} -le 7 ]; then
     n=${#}
+    # Syntax checking:
     for (( x=2; x <= n; x++ )) ; do
         if [ ${!x:0:2} = "--" ]; then
             arg=${!x:2}
@@ -49,9 +55,6 @@ if [ ${1} = "set" -a ${#} -ge 2 -a ${#} -le 7 ]; then
                 len=${#p}
                 if [ ${arg:0:${len}} = ${p} ]; then
                     found=true
-                    value=${arg:${len} + 1}
-                    set_config ${p} ${value}
-                    echo "${p} has been set to ${value}"
                     break
                 fi
             done
@@ -62,8 +65,56 @@ if [ ${1} = "set" -a ${#} -ge 2 -a ${#} -le 7 ]; then
             usage
         fi
     done
+    # Set param to value 
+    for (( x=2; x <= n; x++ )) ; do
+        arg=${!x:2}
+        params=( "api_spec" "grammar_file" "dictionary_file" "settings_file" "token_refresh_command" "token_refresh_interval" )
+        for p in ${params[@]}; do
+            len=${#p}
+            if [ ${arg:0:${len}} = ${p} ]; then
+                value=${arg:${len} + 1}
+                set_config ${p} ${value}
+                printf "${p} has been set to ${value} \n"
+                break
+            fi
+        done
+    done
 elif [ ${1} = "run" -a ${#} -ge 2 -a ${#} -le 5 ]; then
-    echo "byeee"
+    # Syntax checking
+    n=${#}
+    if [ \( \( ${#} -eq 2 \) -a \(  ${2} = "--all" \) \) ]; then
+        do_nothing=0
+    else 
+        processes=( "compile" "test" "fuzzlean" "fuzz" )
+        for (( x=2; x <= n; x++ )) ; do  
+            arg=${!x:2}
+            found=false
+            for p in ${processes[@]}; do
+                if [ ${arg} = ${p} ]; then
+                    found=true
+                    processes=("${processes[@]/${p}}")
+                    break
+                fi
+            done
+            if [ ${found} = false ]; then
+                usage
+            fi
+         done
+    fi 
+    # Run specified process(es)
+    for (( x=2; x <= n; x++ )) ; do 
+        if [ ${!x} = "--all" ]; then
+            echo "a"
+        elif [ ${!x} = "--compile" ]; then
+            echo "b"
+        elif [ ${!x} = "--test" ]; then
+            echo "c"
+        elif [ ${!x} = "--fuzzlean" ]; then
+            echo "d"
+        elif [ ${!x} = "--fuzz" ]; then
+            echo "e"
+        fi
+    done
 else
     usage
 fi
