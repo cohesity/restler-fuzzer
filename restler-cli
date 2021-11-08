@@ -2,8 +2,8 @@
 
 usage() {
     printf "\nUsage:\n\n"
-    printf "./restler-cli set [--api_spec=STRING] [--grammar_file=STRING] [--dictionary_file=STRING]  \ \n"
-    printf "                  [--settings_file=STRING] [--token_refresh_command=STRING] [--token_refresh_interval=INT_SECS] \n"
+    printf "./restler-cli set [--api_spec=STRING] [--grammar_file=STRING] [--dictionary_file=STRING] [--settings_file=STRING] \ \n"
+    printf "                   [--token_refresh_command=STRING] [--token_refresh_interval=INT_SECS] [--time_budget=INT_HRS]\n"
     printf "NOTE: set an argument to NULL to exclude it from. \n\n"
     printf "OR \n\n"
     printf "./restler-cli run [--all] | [--compile] [--test] [--fuzzlean] [--fuzz] \n"
@@ -43,17 +43,44 @@ set_config() {
 run_process() {
     process=${1}
     printf "Starting ${process}...\n"
+    process_lc=$(echo "$process" | tr '[:upper:]' '[:lower:]') 
 
+    if [ ${process_lc} = "compile" ]; then
+        required_params=( "api_spec" )
+    elif [ ${process_lc} = "test" ]; then
+        required_params=( "grammar_file" "dictionary_file" "settings" "token_refresh_command" "token_refresh_interval" )
+    elif [ ${process_lc} = "fuzz-lean" ]; then
+        required_params=( "grammar_file" "dictionary_file" "settings" "token_refresh_command" "token_refresh_interval" )
+    else
+        required_params=( "grammar_file" "dictionary_file" "settings" "token_refresh_command" "token_refresh_interval" "time_budget" ) 
+    fi
+    
+    params="${process_lc}"
+    for p in ${required_params[@]}; do
+        while read line; do 
+            len=${#p}
+            config_param=${line:0:${len}}
+            if [ ${config_param} = ${p} ]; then
+                config_value=${line:${len} + 1}
+                if [ ! ${config_value} = "NULL" ]; then
+                    params=" ${params} --${p} ${config_value}"
+                fi 
+            fi
+        done < "cli-config.txt" 
+    done
+
+    # echo $params
+    dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll ${params}
     printf "${process} finished.\n\n"
 }
 
 if [ ${1} = "set" -a ${#} -ge 2 -a ${#} -le 7 ]; then
     n=${#}
+    params=( "api_spec" "grammar_file" "dictionary_file" "settings_file" "token_refresh_command" "token_refresh_interval" "time_budget")
     # Syntax checking:
     for (( x=2; x <= n; x++ )) ; do
         if [ ${!x:0:2} = "--" ]; then
             arg=${!x:2}
-            params=( "api_spec" "grammar_file" "dictionary_file" "settings_file" "token_refresh_command" "token_refresh_interval" )
             found=false
             for p in ${params[@]}; do
                 len=${#p}
@@ -75,7 +102,6 @@ if [ ${1} = "set" -a ${#} -ge 2 -a ${#} -le 7 ]; then
     # Set param to value 
     for (( x=2; x <= n; x++ )) ; do
         arg=${!x:2}
-        params=( "api_spec" "grammar_file" "dictionary_file" "settings_file" "token_refresh_command" "token_refresh_interval" )
         for p in ${params[@]}; do
             len=${#p}
             if [ ${arg:0:${len}} = ${p} ]; then

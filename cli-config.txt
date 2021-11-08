@@ -1,6 +1,7 @@
-api_spec=NULL
+api_spec=demo/swagger.json
 grammar_file=NULL
 dictionary_file=NULL
-settings_file=NULL
+settings=NULL
 token_refresh_command=NULL
 token_refresh_interval=NULL
+time_budget=NULL
