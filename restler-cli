@@ -1,13 +1,19 @@
 #!/bin/bash 
 
+# IMPORTANT: the cli-config.txt must contain a blank line at the end
+
 usage() {
     printf "\nUsage:\n\n"
     printf "./restler-cli set [--api_spec=STRING] [--grammar_file=STRING] [--dictionary_file=STRING] [--settings_file=STRING] \ \n"
     printf "                   [--token_refresh_command=STRING] [--token_refresh_interval=INT_SECS] [--time_budget=INT_HRS]\n"
-    printf "NOTE: set an argument to NULL to exclude it from. \n\n"
-    printf "OR \n\n"
+    printf "NOTE: set an argument to NULL to exclude it from. \n\n\n"
     printf "./restler-cli run [--all] | [--compile] [--test] [--fuzzlean] [--fuzz] \n"
-    printf "NOTE: the --all flag must be run alone and there may not be duplicate flags. \n\n" 
+    printf "NOTE: the '--all' flag must be run alone and there may not be duplicate flags. \n\n\n"
+    printf "./restler-cli split \n"
+    printf "NOTE: this command assumes the file in api_spec must be split by endpoints_file \n\n\n"
+    printf "./restler-cli to_json\n"
+    printf "NOTE: this command assumes the file in api_spec is YAML. It automatically sets api_spec to the generated JSON file. \n\n\n"
+    printf "./restler-cli list\n\n\n"
     exit 1
 }
 
@@ -150,6 +156,32 @@ elif [ ${1} = "run" -a ${#} -ge 2 -a ${#} -le 5 ]; then
             run_process "Fuzz"
         fi
     done
+elif [ ${1} = "split" -a ${#} -eq 1 ]; then
+    echo "binugs"
+
+elif [ ${1} = "to_json" -a ${#} -eq 1 ]; then
+    input=""
+    value_len=0
+    p="api_spec"
+    param_len=${#p}
+    while read line; do     
+        config_param=${line:0:${param_len}}
+        if [ ${config_param} = ${p} ]; then
+            input=${line:${param_len} + 1}
+            value_len=${#input}
+            if [ ${input} = "NULL" ] || [ ! ${input:${len}-5} = ".yaml" ]; then # check that input is yaml
+                usage
+            fi 
+            break
+        fi
+    done < "cli-config.txt" 
+    output="${input:0:${value_len}-5}.json"
+    yaml2json ${input} ${output}
+    printf "${input} successfully converted to ${output}.\n\n"
+    set_config "api_spec" ${output}
+elif [ ${1} = "list" -a ${#} -eq 1 ]; then
+    cat cli-config.txt
+    printf '\n'
 else
     usage
 fi

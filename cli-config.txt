@@ -1,4 +1,4 @@
-api_spec=demo/swagger.json
+api_spec=coh_api.json
 grammar_file=NULL
 dictionary_file=NULL
 settings=NULL
