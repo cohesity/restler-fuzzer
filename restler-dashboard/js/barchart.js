@@ -11,9 +11,9 @@ var myLineChart = new Chart(ctx, {
     "b43a9a49", "d58fe78a", "9d6aa1ac"],
     datasets: [{
       label: "400",
-      backgroundColor: "#198754",
+      backgroundColor: "#268cde",
       borderColor: "rgba(2,117,216,1)",
-      data: [14, 12, 5, 8, 12, 10, 5, 2, 10],
+      data: [14, 12, 4, 8, 12, 10, 5, 2, 10],
     
     //   options: {
     //     parsing: {

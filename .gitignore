@@ -362,3 +362,9 @@ MigrationBackup/
 # Other
 restler_bin/
 .DS_Store
+Compile/
+Test/
+Fuzzlean/
+Fuzz/
+*.yaml
+*.json

@@ -1,7 +1,8 @@
 api_spec=coh_api.json
-grammar_file=NULL
-dictionary_file=NULL
-settings=NULL
-token_refresh_command=NULL
-token_refresh_interval=NULL
+grammar_file=Compile/grammar.py
+dictionary_file=Compile/dict.json
+settings=Compile/engine_settings.json
+token_refresh_command=python3 token.py
+token_refresh_interval=720
 time_budget=NULL
+endpoints_file=endpoints.json

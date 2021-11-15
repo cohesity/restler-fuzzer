@@ -64,7 +64,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xl-6">
-                                <div class="card mb-4">
+                                <div class="card bg-success mb-4">
                                     <div class="card-header"><b>Fuzz-lean Process</b></div>
                                     <div class="card-body">
                                         <p><iframe src="data/fuzzlean_process.txt" width=100% height=200 frameborder=0 ></iframe></p>
@@ -88,12 +88,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-bar me-1"></i>
-                                Error Buckets
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Error Buckets
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+                                </div>
                             </div>
-                            <div class="card-body"><canvas id="myBarChart" width="200" height="50"></canvas></div>
+                            <div class="col-lg-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-pie me-1"></i>
+                                        Bug Type Breakdown
+                                    </div>
+                                    <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -116,5 +129,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="js/barchart.js"></script>
+        <script src="js/piechart.js"></script>
     </body>
 </html>

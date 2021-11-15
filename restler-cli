@@ -4,8 +4,8 @@
 
 usage() {
     printf "\nUsage:\n\n"
-    printf "./restler-cli set [--api_spec=STRING] [--grammar_file=STRING] [--dictionary_file=STRING] [--settings_file=STRING] \ \n"
-    printf "                   [--token_refresh_command=STRING] [--token_refresh_interval=INT_SECS] [--time_budget=INT_HRS]\n"
+    printf "./restler-cli set [--api_spec=STR] [--grammar_file=STR] [--dictionary_file=STR] [--settings_file=STR] \ \n"
+    printf "                   [--token_refresh_command=STR] [--token_refresh_interval=INT_SECS] [--time_budget=INT_HRS] [--endpoints_file=STR]\n"
     printf "NOTE: set an argument to NULL to exclude it from. \n\n\n"
     printf "./restler-cli run [--all] | [--compile] [--test] [--fuzzlean] [--fuzz] \n"
     printf "NOTE: the '--all' flag must be run alone and there may not be duplicate flags. \n\n\n"
@@ -68,8 +68,12 @@ run_process() {
             config_param=${line:0:${len}}
             if [ ${config_param} = ${p} ]; then
                 config_value=${line:${len} + 1}
-                if [ ! ${config_value} = "NULL" ]; then
-                    params=" ${params} --${p} ${config_value}"
+                if [ ! "${config_value}" = "NULL" ]; then
+                    if [ ${p} = "token_refresh_command" ]; then
+                        params=" ${params} --${p} '${config_value}'"
+                    else
+                        params=" ${params} --${p} ${config_value}"
+                    fi 
                 fi 
             fi
         done < "cli-config.txt" 
@@ -82,7 +86,7 @@ run_process() {
 
 if [ ${1} = "set" -a ${#} -ge 2 -a ${#} -le 7 ]; then
     n=${#}
-    params=( "api_spec" "grammar_file" "dictionary_file" "settings_file" "token_refresh_command" "token_refresh_interval" "time_budget")
+    params=( "api_spec" "grammar_file" "dictionary_file" "settings_file" "token_refresh_command" "token_refresh_interval" "time_budget" "endpoints_file")
     # Syntax checking:
     for (( x=2; x <= n; x++ )) ; do
         if [ ${!x:0:2} = "--" ]; then
@@ -149,16 +153,40 @@ elif [ ${1} = "run" -a ${#} -ge 2 -a ${#} -le 5 ]; then
         elif [ ${!x} = "--compile" ]; then
             run_process "Compile"
         elif [ ${!x} = "--test" ]; then
-            run_process "Test"
+            # run_process "Test"
+            dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll test --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720
         elif [ ${!x} = "--fuzzlean" ]; then
-            run_process "Fuzz-lean"
+            # run_process "Fuzz-lean"
+            dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz-lean --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720
         elif [ ${!x} = "--fuzz" ]; then
             run_process "Fuzz"
         fi
     done
 elif [ ${1} = "split" -a ${#} -eq 1 ]; then
-    echo "binugs"
-
+    api_spec=""
+    endpoints_file=""
+    p1="api_spec"
+    p1_len=${#p1}
+    p2="endpoints_file"
+    p2_len=${#p2}
+    while read line; do     
+        config_p1=${line:0:${p1_len}}
+        if [ ${config_p1} = ${p1} ]; then
+            api_spec=${line:${p1_len} + 1}
+            if [ ${api_spec} = "NULL" ]; then 
+                usage
+            fi 
+        fi
+        config_p2=${line:0:${p2_len}}
+        if [ ${config_p2} = ${p2} ]; then
+            endpoints_file=${line:${p2_len} + 1}
+            if [ ${endpoints_file} = "NULL" ]; then 
+                usage
+            fi 
+        fi
+    done < "cli-config.txt" 
+    python3 -c "import split; split.split_spec('${api_spec}', '${endpoints_file}')" 
+    printf "${api_spec} has been split according to ${endpoints_file}.\n"
 elif [ ${1} = "to_json" -a ${#} -eq 1 ]; then
     input=""
     value_len=0
@@ -169,7 +197,7 @@ elif [ ${1} = "to_json" -a ${#} -eq 1 ]; then
         if [ ${config_param} = ${p} ]; then
             input=${line:${param_len} + 1}
             value_len=${#input}
-            if [ ${input} = "NULL" ] || [ ! ${input:${len}-5} = ".yaml" ]; then # check that input is yaml
+            if [ ${input} = "NULL" ] || [ ! ${input:${len}-5} = ".yaml" ]; then 
                 usage
             fi 
             break

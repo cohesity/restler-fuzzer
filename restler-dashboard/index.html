@@ -56,6 +56,19 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
+                        <button  id="button">Run process</button>
+                        <script>
+                            button.addEventListener('click', async function(e) {
+                                try {
+                                // fetch is like $.ajax, but its native
+                                // 'await' is like a callback
+                                const { stdout, stderr } = await fetch("http://localhost/address").then(res => res.json());
+                                    console.log(stdout, stderr);
+                                } catch(err) {
+                                    console.error("error occured while pinging server", err);
+                                }
+                            });
+                        </script>
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
@@ -70,10 +83,10 @@
                         </div>
                         <div class="row">
                             <div class="col-xl-6">
-                                <div class="card mb-4">
+                                <div class="card bg-success mb-4">
                                     <div class="card-header"><b>Compile Process</b></div>
                                     <div class="card-body">
-                                        <p><iframe src="data/compile_process.txt" width=100% height=110 frameborder=0 ></iframe></p>
+                                        <p><iframe src="data/compile_process.txt" width=100% height=120 frameborder=0 ></iframe></p>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-black" href="compile.html">View Details</a>
@@ -82,10 +95,10 @@
                                 </div>
                             </div>
                             <div class="col-xl-6">
-                                <div class="card mb-4">
+                                <div class="card bg-danger mb-4">
                                     <div class="card-header"><b>Test Process</b></div>
                                     <div class="card-body">
-                                        <p><iframe src="data/test_process.txt" width=100% height=110 frameborder=0 ></iframe></p>
+                                        <p><iframe src="data/test_process.txt" width=100% height=120 frameborder=0 ></iframe></p>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-black" href="test.html">View Details</a>
@@ -96,7 +109,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xl-6">
-                                <div class="card mb-4">
+                                <div class="card bg-success mb-4">
                                     <div class="card-header"><b>Fuzz-lean Process</b></div>
                                     <div class="card-body">
                                         <p><iframe src="data/fuzzlean_process.txt" width=100% height=200 frameborder=0 ></iframe></p>
@@ -108,10 +121,15 @@
                                 </div>
                             </div>
                             <div class="col-xl-6">
-                                <div class="card mb-4">
+                                <div class="card bg-warning mb-4">
                                     <div class="card-header"><b>Fuzz Process</b></div>
-                                    <div class="card-body">
-                                        <p><iframe src="data/fuzz_process.txt" width=100% height=200 frameborder=0 ></iframe></p> 
+                                    <div class="card-body card-height">
+                                        <div class="col center">
+                                            <image src="assets/img/process_error.png" width=110 height=100> </image>
+                                            <p>The Fuzz Process has not been executed.</p>
+                                        </div>
+                                        <!-- <p><iframe src="data/fuzz_process.txt" width=100% height=200 frameborder=0 ></iframe></p>  -->
+                                        
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-black" href="fuzz.html">View Details</a>
