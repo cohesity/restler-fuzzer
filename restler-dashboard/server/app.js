@@ -5,8 +5,8 @@ const path = require("path");
 const fs = require("fs");
 var app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json({ limit: "50mb" }));
 
 /*
 TODO:
@@ -26,16 +26,16 @@ function runProcess(req, res) {
   var cmd = "";
   if (process == "compile") {
     cmd =
-      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll compile --api_spec ../../demo/swagger.json > data/compile_process.txt";
+      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll compile --api_spec uploads/spec.json > process_data/compile_process.txt";
   } else if (process == "test") {
     cmd =
-      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll test --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings Compile/engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720 > data/test_process.txt";
+      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll test --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings Compile/engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720 > process_data/test_process.txt";
   } else if (process == "fuzzlean") {
     cmd =
-      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz-lean --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings Compile/engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720 > data/fuzzlean_process.txt";
+      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz-lean --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings Compile/engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720 > process_data/fuzzlean_process.txt";
   } else if (process == "fuzz") {
     cmd =
-      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings Compile/engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720 > data/fuzz_process.txt";
+      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings Compile/engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720 > process_data/fuzz_process.txt";
   }
   exec(cmd, (err, stdout, stderr) => {
     res.json({

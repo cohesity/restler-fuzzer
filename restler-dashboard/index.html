@@ -122,6 +122,7 @@
                               { method: "POST" }
                             ).then((res) => res.json());
                             console.log(stdout, stderr);
+                            window.location.reload();
                           } catch (err) {
                             console.error(
                               "error occured while pinging server",
@@ -135,13 +136,16 @@
                   <div id="compile_success" class="card-body">
                     <p id="compile_process">
                       <script>
-                        fetch("http://localhost/file/data/compile_process.txt")
+                        fetch(
+                          "http://localhost/file/process_data/compile_process.txt"
+                        )
                           .then((response) => response.text())
                           .then((textString) => {
                             console.log(textString);
                             document.getElementById(
                               "compile_process"
                             ).innerText = textString;
+                            // window.location.reload();
                           })
                           .catch(function (err) {
                             // There was an error
