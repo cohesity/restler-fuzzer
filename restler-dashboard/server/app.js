@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 var app = express();
 
+app.use(express.json());
 app.use(cors());
 
 /*
@@ -65,23 +66,20 @@ function getFile(req, res) {
   });
 }
 
-// Without middleware
-app.use("/get_file", function (req, res) {
-  var options = {
-    root: path.join(__dirname, "Compile"),
-  };
+app.post("/upload/:filename", uploadFile);
 
-  var fileName = "engine_settings.json";
-  res.sendFile(fileName, options, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Sent:", fileName);
+function uploadFile(req, res) {
+  var filename = req.params["filename"];
+  // console.log(res.json({ requestBody: req.body }));
+  fs.writeFile(
+    "uploads/spec.json",
+    JSON.stringify(req.body, null, "\t"),
+    (err) => {
+      if (err) return next(err);
     }
-  });
-
-  res.sendFile(path.join(__dirname, "Hello.text"));
-});
+  );
+  console.log("Received " + filename + ".");
+}
 
 app.listen(80, () => console.log("Server started..."));
 

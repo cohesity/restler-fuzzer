@@ -89,9 +89,64 @@
                   <div class="card-body">
                     <div class="mb-3">
                       <label for="formFile" class="form-label">API Spec:</label>
-                      <input class="form-control" type="file" id="formFile" />
+                      <input
+                        class="form-control"
+                        type="file"
+                        id="upload_apispec"
+                      />
                       <br />
-                      <input type="submit" class="btn btn-outline-dark" />
+                      <button
+                        type="button"
+                        id="btn_apispec"
+                        class="btn btn-outline-dark"
+                      >
+                        Upload
+                      </button>
+                      <script>
+                        // let apispec =
+                        //   document.getElementById("upload_apispec").files[0];
+                        // let formData = new FormData();
+
+                        // formData.append("upload_apispec", apispec);
+
+                        // btn_apispec.addEventListener("click", function () {
+                        //   console.log(formData);
+                        //   fetch("http://localhost/upload/spec.json", {
+                        //     method: "POST",
+                        //     body: formData,
+                        //   });
+                        // });
+
+                        const myInput =
+                          document.getElementById("upload_apispec");
+
+                        btn_apispec.addEventListener("click", function () {
+                          console.log(myInput.files[0]);
+                          fetch("http://localhost/upload/spec.json", {
+                            method: "POST",
+                            body: myInput.files[0],
+                          });
+                        });
+
+                        // btn_apispec.addEventListener(
+                        //   "click",
+                        //   async function (e) {
+                        //     try {
+                        //       const { stdout, stderr } = await fetch(
+                        //         "http://localhost/upload/apispec",
+                        //         { method: "POST", body: formData }
+                        //       ).then((res) => res.json());
+                        //       console.log(stdout, stderr);
+                        //     } catch (err) {
+                        //       console.log(formData);
+                        //       console.error(
+                        //         "error occured while pinging server",
+                        //         err
+                        //       );
+                        //     }
+                        //   }
+                        // );
+                      </script>
                     </div>
                   </div>
                 </div>
