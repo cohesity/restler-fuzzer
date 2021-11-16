@@ -94,35 +94,53 @@
                     <b>Compile Process</b>
                     <button
                       type="button"
-                      id="button"
+                      id="compile_button"
                       class="btn btn-outline-dark button_example"
                     >
                       Run Process
                     </button>
                     <script>
-                      button.addEventListener("click", async function (e) {
-                        try {
-                          const { stdout, stderr } = await fetch(
-                            "http://localhost/compile_process"
-                          ).then((res) => res.json());
-                          console.log(stdout, stderr);
-                        } catch (err) {
-                          console.error(
-                            "error occured while pinging server",
-                            err
-                          );
+                      compile_button.addEventListener(
+                        "click",
+                        async function (e) {
+                          try {
+                            const { stdout, stderr } = await fetch(
+                              "http://localhost/run/compile",
+                              { method: "POST" }
+                            ).then((res) => res.json());
+                            console.log(stdout, stderr);
+                          } catch (err) {
+                            console.error(
+                              "error occured while pinging server",
+                              err
+                            );
+                          }
                         }
-                      });
+                      );
                     </script>
                   </div>
-                  <div class="card-body">
-                    <p>
-                      <iframe
+                  <div id="compile_success" class="card-body">
+                    <p id="compile_process">
+                      <!-- <iframe
                         src="data/compile_process.txt"
                         width="100%"
                         height="120"
                         frameborder="0"
-                      ></iframe>
+                      ></iframe> -->
+                      <script>
+                        fetch("http://localhost/file/data/compile_process.txt")
+                          .then((response) => response.text())
+                          .then((textString) => {
+                            console.log(textString);
+                            document.getElementById(
+                              "compile_process"
+                            ).innerText = textString;
+                          })
+                          .catch(function (err) {
+                            // There was an error
+                            console.warn("Something went wrong.", err);
+                          });
+                      </script>
                     </p>
                   </div>
                   <div
@@ -148,16 +166,17 @@
                     <b>Test Process</b>
                     <button
                       type="button"
-                      id="button"
+                      id="test_button"
                       class="btn btn-outline-dark button_example"
                     >
                       Run Process
                     </button>
                     <script>
-                      button.addEventListener("click", async function (e) {
+                      test_button.addEventListener("click", async function (e) {
                         try {
                           const { stdout, stderr } = await fetch(
-                            "http://localhost/test_process"
+                            "http://localhost/run/test",
+                            { method: "POST" }
                           ).then((res) => res.json());
                           console.log(stdout, stderr);
                         } catch (err) {
@@ -204,25 +223,29 @@
                     <b>Fuzz-lean Process</b>
                     <button
                       type="button"
-                      id="button"
+                      id="fuzzlean_button"
                       class="btn btn-outline-dark button_example"
                     >
                       Run Process
                     </button>
                     <script>
-                      button.addEventListener("click", async function (e) {
-                        try {
-                          const { stdout, stderr } = await fetch(
-                            "http://localhost/fuzzlean_process"
-                          ).then((res) => res.json());
-                          console.log(stdout, stderr);
-                        } catch (err) {
-                          console.error(
-                            "error occured while pinging server",
-                            err
-                          );
+                      fuzzlean_button.addEventListener(
+                        "click",
+                        async function (e) {
+                          try {
+                            const { stdout, stderr } = await fetch(
+                              "http://localhost/run/fuzzlean",
+                              { method: "POST" }
+                            ).then((res) => res.json());
+                            console.log(stdout, stderr);
+                          } catch (err) {
+                            console.error(
+                              "error occured while pinging server",
+                              err
+                            );
+                          }
                         }
-                      });
+                      );
                     </script>
                   </div>
                   <div class="card-body">
@@ -258,16 +281,17 @@
                     <b>Fuzz Process</b>
                     <button
                       type="button"
-                      id="button"
+                      id="fuzz_button"
                       class="btn btn-outline-dark button_example"
                     >
                       Run Process
                     </button>
                     <script>
-                      button.addEventListener("click", async function (e) {
+                      fuzz_button.addEventListener("click", async function (e) {
                         try {
                           const { stdout, stderr } = await fetch(
-                            "http://localhost/fuzz_process"
+                            "http://localhost/run/fuzz",
+                            { method: "POST" }
                           ).then((res) => res.json());
                           console.log(stdout, stderr);
                         } catch (err) {
