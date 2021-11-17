@@ -42,7 +42,7 @@ def remove_internal_api(args):
     '''
     try:
         yaml_object = load_yaml(args.input_yaml)
-        with open('endpoints.json') as f:
+        with open('uploads/endpoints.json') as f: # path is relative to where split.py is called from
             endpoints = json.load(f)
         for path in list(yaml_object['paths']):
             found = False

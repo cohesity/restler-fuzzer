@@ -124,23 +124,6 @@
                         btn_pk.addEventListener("click", function () {
                           var myInput =
                             document.getElementById("input_pk").value;
-
-                          //   var myInput =
-                          //     document.getElementById("input_pk").value;
-                          //   console.log(myInput);
-                          //   fetch("http://localhost/download/" + myInput, {
-                          //     method: "GET",
-                          //   })
-                          //     .then((res) => res.blob())
-                          //     .then((blob) => {
-                          //       var file = window.URL.createObjectURL(blob);
-                          //       window.location.assign(file);
-                          //     })
-                          //     .catch(function (err) {
-                          //       // There was an error
-                          //       console.warn("Something went wrong.", err);
-                          //     });
-
                           fetch("http://localhost/download/" + myInput, {
                             method: "GET",
                             headers: {
@@ -155,14 +138,14 @@
                               );
                               const link = document.createElement("a");
                               link.href = url;
-                              link.setAttribute("download", `coh_api.yaml`);
-
+                              link.setAttribute(
+                                "download",
+                                "coh_api_" + myInput + ".yaml"
+                              );
                               // Append to html link element page
                               document.body.appendChild(link);
-
                               // Start download
                               link.click();
-
                               // Clean up and remove the link
                               link.parentNode.removeChild(link);
                             });
@@ -178,29 +161,36 @@
                     <b>Selective Endpoints</b>
                     <button
                       type="button"
-                      id="selective_button"
+                      id="btn_split"
                       class="btn btn-outline-dark button_example"
                     >
-                      Split
+                      Download
                     </button>
                     <script>
-                      selective_button.addEventListener(
-                        "click",
-                        async function (e) {
-                          try {
-                            const { stdout, stderr } = await fetch(
-                              "http://localhost/run/test",
-                              { method: "POST" }
-                            ).then((res) => res.json());
-                            console.log(stdout, stderr);
-                          } catch (err) {
-                            console.error(
-                              "error occured while pinging server",
-                              err
+                      btn_split.addEventListener("click", function () {
+                        fetch("http://localhost/split", {
+                          method: "GET",
+                          headers: {
+                            "Content-Type": "application/yaml",
+                          },
+                        })
+                          .then((response) => response.blob())
+                          .then((blob) => {
+                            // Create blob link to download
+                            const url = window.URL.createObjectURL(
+                              new Blob([blob])
                             );
-                          }
-                        }
-                      );
+                            const link = document.createElement("a");
+                            link.href = url;
+                            link.setAttribute("download", "coh_api_split.yaml");
+                            // Append to html link element page
+                            document.body.appendChild(link);
+                            // Start download
+                            link.click();
+                            // Clean up and remove the link
+                            link.parentNode.removeChild(link);
+                          });
+                      });
                     </script>
                   </div>
                   <div class="card-body">
@@ -209,8 +199,8 @@
                       endpoints specified in an Endpoints File.
                     </p>
                     <p>
-                      <b>Requirements:</b> Upload a valid API Spec and Endpoints
-                      File in <a href="config.html">Config</a>.
+                      <b>Requirements:</b> Upload a valid YAML API Spec and
+                      Endpoints File in <a href="config.html">Config</a>.
                     </p>
                   </div>
                 </div>
@@ -223,29 +213,39 @@
                     <b>YAML To JSON Converter</b>
                     <button
                       type="button"
-                      id="selective_button"
+                      id="btn_convert"
                       class="btn btn-outline-dark button_example"
                     >
                       Download
                     </button>
                     <script>
-                      download_button.addEventListener(
-                        "click",
-                        async function (e) {
-                          try {
-                            const { stdout, stderr } = await fetch(
-                              "http://localhost/run/test",
-                              { method: "POST" }
-                            ).then((res) => res.json());
-                            console.log(stdout, stderr);
-                          } catch (err) {
-                            console.error(
-                              "error occured while pinging server",
-                              err
+                      btn_convert.addEventListener("click", function () {
+                        fetch("http://localhost/convert", {
+                          method: "GET",
+                          headers: {
+                            "Content-Type": "application/json",
+                          },
+                        })
+                          .then((response) => response.blob())
+                          .then((blob) => {
+                            // Create blob link to download
+                            const url = window.URL.createObjectURL(
+                              new Blob([blob])
                             );
-                          }
-                        }
-                      );
+                            const link = document.createElement("a");
+                            link.href = url;
+                            link.setAttribute(
+                              "download",
+                              "coh_api_converted.json"
+                            );
+                            // Append to html link element page
+                            document.body.appendChild(link);
+                            // Start download
+                            link.click();
+                            // Clean up and remove the link
+                            link.parentNode.removeChild(link);
+                          });
+                      });
                     </script>
                   </div>
                   <div class="card-body">

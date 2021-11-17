@@ -113,10 +113,10 @@
                       <script>
                         const myInput =
                           document.getElementById("upload_apispec");
-
                         btn_apispec.addEventListener("click", function () {
                           console.log(myInput.files[0]);
-                          fetch("http://localhost/upload/spec.json", {
+                          var filename = myInput.files[0].name;
+                          fetch("http://localhost/upload/" + filename, {
                             method: "POST",
                             body: myInput.files[0],
                           });
