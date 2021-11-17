@@ -81,4 +81,26 @@ function uploadFile(req, res) {
   console.log("Received " + filename + ".");
 }
 
+app.get("/download/:privateKey", downloadSpec);
+
+function downloadSpec(req, res) {
+  var privateKey = req.params["privateKey"];
+  var cmd =
+    "curl -v -k https://" +
+    privateKey +
+    "/config/yaml/post_processed_v2_on_prem_api.yaml --output uploads/coh_api.yaml";
+  var options = {
+    root: path.join(__dirname, "/uploads"),
+  };
+  exec(cmd, (err, stdout, stderr) => {
+    res.sendFile("coh_api.yaml", options, function (err) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Sent:", "coh_api.yaml");
+      }
+    });
+  });
+}
+
 app.listen(80, () => console.log("Server started..."));

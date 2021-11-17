@@ -62,12 +62,18 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Fuzz
               </a>
-              <div class="sb-sidenav-menu-heading">Other</div>
-              <a class="nav-link" href="settings.html">
+              <div class="sb-sidenav-menu-heading">Settings</div>
+              <a class="nav-link" href="config.html">
                 <div class="sb-nav-link-icon">
                   <i class="fas fa-cog"></i>
                 </div>
-                Settings
+                Config
+              </a>
+              <a class="nav-link" href="tools.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-cog"></i>
+                </div>
+                Tools
               </a>
             </div>
           </div>
@@ -76,25 +82,21 @@
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Settings</h1>
+            <h1 class="mt-4">Config</h1>
             <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item">
                 <a href="index.html">Dashboard</a>
               </li>
-              <li class="breadcrumb-item active">Settings</li>
+              <li class="breadcrumb-item active">Config</li>
             </ol>
-            <div class="card mb-4">
-              <div class="card-body">
-                Click <a href="../coh_api.yaml" download="filename">here</a> to
-                download Cohesity API spec.
-              </div>
-            </div>
             <div class="row">
               <div class="col-xl-6">
                 <div class="card mb-4">
                   <div class="card-body">
                     <div class="mb-3">
-                      <label for="formFile" class="form-label">API Spec:</label>
+                      <label for="formFile" class="form-label"
+                        ><b>API Spec:</b></label
+                      >
                       <input
                         class="form-control"
                         type="file"
@@ -129,7 +131,7 @@
                   <div class="card-body">
                     <div class="mb-3">
                       <label for="formFile" class="form-label"
-                        >Grammar File:</label
+                        ><b>Grammar File:</b></label
                       >
                       <input class="form-control" type="file" id="formFile" />
                       <br />
@@ -145,7 +147,7 @@
                   <div class="card-body">
                     <div class="mb-3">
                       <label for="formFile" class="form-label"
-                        >Dictionary File:</label
+                        ><b>Dictionary File:</b></label
                       >
                       <input class="form-control" type="file" id="formFile" />
                       <br />
@@ -158,7 +160,9 @@
                 <div class="card mb-4">
                   <div class="card-body">
                     <div class="mb-3">
-                      <label for="formFile" class="form-label">Settings:</label>
+                      <label for="formFile" class="form-label"
+                        ><b>Settings:</b></label
+                      >
                       <input class="form-control" type="file" id="formFile" />
                       <br />
                       <input type="submit" class="btn btn-outline-dark" />
@@ -173,7 +177,7 @@
                   <div class="card-body">
                     <div class="mb-3">
                       <label for="formFile" class="form-label"
-                        >Token Refresh Command:</label
+                        ><b>Token Refresh Command:</b></label
                       >
                       <input class="form-control" type="file" id="formFile" />
                       <br />
@@ -187,7 +191,7 @@
                   <div class="card-body">
                     <div class="mb-3">
                       <label for="formFile" class="form-label"
-                        >Endpoints File:</label
+                        ><b>Endpoints File:</b></label
                       >
                       <input class="form-control" type="file" id="formFile" />
                       <br />

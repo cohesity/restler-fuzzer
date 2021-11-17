@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Settings - RESTler</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
+      rel="stylesheet"
+    />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+      <!-- Navbar Brand-->
+      <a class="navbar-brand ps-3" href="index.html">RESTler Dashboard</a>
+      <!-- Sidebar Toggle-->
+      <button
+        class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+        id="sidebarToggle"
+        href="#!"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    <div id="layoutSidenav">
+      <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+          <div class="sb-sidenav-menu">
+            <div class="nav">
+              <div class="sb-sidenav-menu-heading">Core</div>
+              <a class="nav-link" href="index.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-tachometer-alt"></i>
+                </div>
+                Dashboard
+              </a>
+              <div class="sb-sidenav-menu-heading">Processes</div>
+              <a class="nav-link" href="compile.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Compile
+              </a>
+              <a class="nav-link" href="test.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Test
+              </a>
+              <a class="nav-link" href="fuzzlean.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Fuzz-lean
+              </a>
+              <a class="nav-link" href="fuzz.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Fuzz
+              </a>
+              <div class="sb-sidenav-menu-heading">Settings</div>
+              <a class="nav-link" href="config.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-cog"></i>
+                </div>
+                Config
+              </a>
+              <a class="nav-link" href="tools.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-cog"></i>
+                </div>
+                Tools
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div id="layoutSidenav_content">
+        <main>
+          <div class="container-fluid px-4">
+            <h1 class="mt-4">Tools</h1>
+            <ol class="breadcrumb mb-4">
+              <li class="breadcrumb-item">
+                <a href="index.html">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item active">Tools</li>
+            </ol>
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-header process_heading">
+                    <b>Cohesity API Spec Download</b>
+                  </div>
+                  <div class="card-body">
+                    <p>
+                      This tool will download a Cohesity YAML API Spec given a
+                      Cluster PrivateKey.
+                    </p>
+                    <p>
+                      <b>Requirements:</b> Input a valid PrivateKey in the
+                      following text box.
+                    </p>
+                    <div class="form-group">
+                      <label for="PrivateKey">PrivateKey:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="input_pk"
+                        placeholder="Enter PrivateKey"
+                      />
+                      <br />
+                      <button
+                        type="button"
+                        id="btn_pk"
+                        class="btn btn-outline-dark"
+                      >
+                        Download
+                      </button>
+                      <script>
+                        btn_pk.addEventListener("click", function () {
+                          var myInput =
+                            document.getElementById("input_pk").value;
+
+                          //   var myInput =
+                          //     document.getElementById("input_pk").value;
+                          //   console.log(myInput);
+                          //   fetch("http://localhost/download/" + myInput, {
+                          //     method: "GET",
+                          //   })
+                          //     .then((res) => res.blob())
+                          //     .then((blob) => {
+                          //       var file = window.URL.createObjectURL(blob);
+                          //       window.location.assign(file);
+                          //     })
+                          //     .catch(function (err) {
+                          //       // There was an error
+                          //       console.warn("Something went wrong.", err);
+                          //     });
+
+                          fetch("http://localhost/download/" + myInput, {
+                            method: "GET",
+                            headers: {
+                              "Content-Type": "application/yaml",
+                            },
+                          })
+                            .then((response) => response.blob())
+                            .then((blob) => {
+                              // Create blob link to download
+                              const url = window.URL.createObjectURL(
+                                new Blob([blob])
+                              );
+                              const link = document.createElement("a");
+                              link.href = url;
+                              link.setAttribute("download", `coh_api.yaml`);
+
+                              // Append to html link element page
+                              document.body.appendChild(link);
+
+                              // Start download
+                              link.click();
+
+                              // Clean up and remove the link
+                              link.parentNode.removeChild(link);
+                            });
+                        });
+                      </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-header process_heading">
+                    <b>Selective Endpoints</b>
+                    <button
+                      type="button"
+                      id="selective_button"
+                      class="btn btn-outline-dark button_example"
+                    >
+                      Split
+                    </button>
+                    <script>
+                      selective_button.addEventListener(
+                        "click",
+                        async function (e) {
+                          try {
+                            const { stdout, stderr } = await fetch(
+                              "http://localhost/run/test",
+                              { method: "POST" }
+                            ).then((res) => res.json());
+                            console.log(stdout, stderr);
+                          } catch (err) {
+                            console.error(
+                              "error occured while pinging server",
+                              err
+                            );
+                          }
+                        }
+                      );
+                    </script>
+                  </div>
+                  <div class="card-body">
+                    <p>
+                      This tool will return a new API Spec that only includes
+                      endpoints specified in an Endpoints File.
+                    </p>
+                    <p>
+                      <b>Requirements:</b> Upload a valid API Spec and Endpoints
+                      File in <a href="config.html">Config</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-header process_heading">
+                    <b>YAML To JSON Converter</b>
+                    <button
+                      type="button"
+                      id="selective_button"
+                      class="btn btn-outline-dark button_example"
+                    >
+                      Download
+                    </button>
+                    <script>
+                      download_button.addEventListener(
+                        "click",
+                        async function (e) {
+                          try {
+                            const { stdout, stderr } = await fetch(
+                              "http://localhost/run/test",
+                              { method: "POST" }
+                            ).then((res) => res.json());
+                            console.log(stdout, stderr);
+                          } catch (err) {
+                            console.error(
+                              "error occured while pinging server",
+                              err
+                            );
+                          }
+                        }
+                      );
+                    </script>
+                  </div>
+                  <div class="card-body">
+                    <p>
+                      This tool will return a new JSON API Spec given a YAML
+                      file.
+                    </p>
+                    <p>
+                      <b>Requirements:</b> Upload a valid YAML file under API
+                      Spec in <a href="config.html">Config</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/scripts.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/datatables.js"></script>
+  </body>
+</html>
