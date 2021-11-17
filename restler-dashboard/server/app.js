@@ -82,17 +82,3 @@ function uploadFile(req, res) {
 }
 
 app.listen(80, () => console.log("Server started..."));
-
-// app.get("/compile_process", (req, res) => {
-//   exec(
-//     "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll compile --api_spec ../../demo/swagger.json",
-//     (err, stdout, stderr) => {
-//       res.json({
-//         // respond to client if the command was done
-//         stdout: "" + stdout,
-//         stderr: "" + stderr,
-//       });
-//       console.log(stdout);
-//     }
-//   );
-// });

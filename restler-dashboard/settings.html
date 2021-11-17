@@ -83,6 +83,12 @@
               </li>
               <li class="breadcrumb-item active">Settings</li>
             </ol>
+            <div class="card mb-4">
+              <div class="card-body">
+                Click <a href="../coh_api.yaml" download="filename">here</a> to
+                download Cohesity API spec.
+              </div>
+            </div>
             <div class="row">
               <div class="col-xl-6">
                 <div class="card mb-4">
@@ -103,20 +109,6 @@
                         Upload
                       </button>
                       <script>
-                        // let apispec =
-                        //   document.getElementById("upload_apispec").files[0];
-                        // let formData = new FormData();
-
-                        // formData.append("upload_apispec", apispec);
-
-                        // btn_apispec.addEventListener("click", function () {
-                        //   console.log(formData);
-                        //   fetch("http://localhost/upload/spec.json", {
-                        //     method: "POST",
-                        //     body: formData,
-                        //   });
-                        // });
-
                         const myInput =
                           document.getElementById("upload_apispec");
 
@@ -127,25 +119,6 @@
                             body: myInput.files[0],
                           });
                         });
-
-                        // btn_apispec.addEventListener(
-                        //   "click",
-                        //   async function (e) {
-                        //     try {
-                        //       const { stdout, stderr } = await fetch(
-                        //         "http://localhost/upload/apispec",
-                        //         { method: "POST", body: formData }
-                        //       ).then((res) => res.json());
-                        //       console.log(stdout, stderr);
-                        //     } catch (err) {
-                        //       console.log(formData);
-                        //       console.error(
-                        //         "error occured while pinging server",
-                        //         err
-                        //       );
-                        //     }
-                        //   }
-                        // );
                       </script>
                     </div>
                   </div>

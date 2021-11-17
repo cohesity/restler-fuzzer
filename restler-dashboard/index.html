@@ -145,12 +145,22 @@
                             document.getElementById(
                               "compile_process"
                             ).innerText = textString;
-                            // window.location.reload();
                           })
                           .catch(function (err) {
                             // There was an error
                             console.warn("Something went wrong.", err);
                           });
+                        var node1 = document.createElement("DIV");
+                        node1.className = "card-body";
+                        var node2 = document.createElement("P");
+                        // var node2text = document.createTextNode("Success");
+                        node2.id = "nodee";
+                        // node2.appendChild(node2text);
+                        // node1.appendChild(node2);
+                        document
+                          .getElementById("compile_success")
+                          .appendChild(node2);
+                        document.getElementById("nodee").innerText = "Success";
                       </script>
                     </p>
                   </div>
