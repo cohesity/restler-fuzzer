@@ -1,0 +1,91 @@
+[11/17/2021 2:16:43 PM] Generating grammar...
+[11/17/2021 2:16:45 PM] Getting requests...
+[11/17/2021 2:16:45 PM] Getting dependencies...
+[11/17/2021 2:16:45 PM] Getting path consumers...
+[11/17/2021 2:16:45 PM] Getting query consumers...
+[11/17/2021 2:16:45 PM] Getting header consumers...
+[11/17/2021 2:16:45 PM] Getting body consumers...
+[11/17/2021 2:16:45 PM] Getting producers...
+[11/17/2021 2:16:45 PM] Done processing producers
+[11/17/2021 2:16:45 PM] Compute dependencies
+[11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Get }[
+11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Post }
+[11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Post }
+[[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Post }11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Post }
+[11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/alertsSummary"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Post }
+[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/alertsSummary"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/alertsSummary"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/alertsSummary"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Get }
+
+[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Post }
+[[11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Get }
+11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/alertsSummary"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/alertsSummary"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Post }
+[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/active-directories"
+  xMsPath = None
+  method = Post }
+[11/17/2021 2:16:46 PM] Second pass dependencies for request { endpoint = "/alertsSummary"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Done dependencies for request { endpoint = "/alertsSummary"
+  xMsPath = None
+  method = Get }
+[11/17/2021 2:16:46 PM] Getting ordering constraints...
+[11/17/2021 2:16:46 PM] Dependency analysis completed.
+[11/17/2021 2:16:46 PM] Generating request primitives...
+Writing new dictionary to /Users/ivan.mudarth/restler-fuzzer/restler-dashboard/server/Compile/dict.json
+[11/17/2021 2:16:46 PM] Generating python grammar...
+[11/17/2021 2:16:46 PM] Get requests
+[11/17/2021 2:16:46 PM] Done get requests
+[11/17/2021 2:16:46 PM] Done generating python grammar.
+Workflow completed.  See /Users/ivan.mudarth/restler-fuzzer/restler-dashboard/server/Compile for REST-ler grammar.

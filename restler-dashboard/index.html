@@ -41,39 +41,51 @@
               <div class="sb-sidenav-menu-heading">Core</div>
               <a class="nav-link" href="index.html">
                 <div class="sb-nav-link-icon">
+                  <i class="fas fa-home"></i>
+                </div>
+                Home
+              </a>
+              <div class="sb-sidenav-menu-heading">Run</div>
+              <a class="nav-link" href="run/upload.html">
+                <div class="sb-nav-link-icon">
                   <i class="fas fa-tachometer-alt"></i>
+                </div>
+                Upload
+              </a>
+              <a class="nav-link" href="run/configure.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-tachometer-alt"></i>
+                </div>
+                Configure
+              </a>
+              <a class="nav-link" href="run/execute.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-tachometer-alt"></i>
+                </div>
+                Execute
+              </a>
+              <div class="sb-sidenav-menu-heading">View</div>
+              <a class="nav-link" href="view/dashboard.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-chart-line"></i>
                 </div>
                 Dashboard
               </a>
-              <div class="sb-sidenav-menu-heading">Processes</div>
-              <a class="nav-link" href="compile.html">
+              <a class="nav-link" href="view/compile.html">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Compile
               </a>
-              <a class="nav-link" href="test.html">
+              <a class="nav-link" href="view/test.html">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Test
               </a>
-              <a class="nav-link" href="fuzzlean.html">
+              <a class="nav-link" href="view/fuzzlean.html">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Fuzz-lean
               </a>
-              <a class="nav-link" href="fuzz.html">
+              <a class="nav-link" href="view/fuzz.html">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Fuzz
-              </a>
-              <div class="sb-sidenav-menu-heading">Settings</div>
-              <a class="nav-link" href="config.html">
-                <div class="sb-nav-link-icon">
-                  <i class="fas fa-cog"></i>
-                </div>
-                Config
-              </a>
-              <a class="nav-link" href="tools.html">
-                <div class="sb-nav-link-icon">
-                  <i class="fas fa-cog"></i>
-                </div>
-                Tools
               </a>
             </div>
           </div>
@@ -82,284 +94,89 @@
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Dashboard</h1>
+            <h1 class="mt-4">Home</h1>
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item active">Core</li>
             </ol>
             <div class="card mb-4">
+              <div class="card-header process_heading">
+                <b>About</b>
+              </div>
               <div class="card-body">
-                Click <a href="config.html">here</a> to configure RESTler
-                settings required for a run. Click
-                <a href="tools.html">here</a> to use tools to help start a
-                RESTler run.
+                <p>
+                  RESTler is a library developed by Microsoft Research that
+                  performs
+                  <b>stateful API fuzzing</b>. Stateful fuzzing is a more
+                  sophisticated method of automatic test generation for REST
+                  APIs. Given a YAML specification, a sequence of requests are
+                  sent to the appropriate endpoints using inferred parameters.
+                  This website allows the RESTler library to be run and the
+                  results visualized.
+                </p>
+                <div>
+                  This UI allows the library to be run in the following steps:
+                  <ul>
+                    <li>
+                      <b>Upload:</b> Input a valid API spec by uploading a YAML
+                      file or Cluster VIP
+                    </li>
+                    <li>
+                      <b>Configure:</b> Specify multiple configuration options
+                      such as the maximum fuzzing time
+                    </li>
+                    <li>
+                      <b>Execute:</b> Start each/all of the 4 RESTler processes
+                      (described below)
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  Then, the results of the run can be visualized. RESTler has 4
+                  separate processes:
+                  <ul>
+                    <li>
+                      <b>Compile:</b> Generates a RESTler grammar from a Swagger
+                      YAML specification
+                    </li>
+                    <li>
+                      <b>Test:</b> Computes what parts of the Swagger spec are
+                      covered by RESTler
+                    </li>
+                    <li>
+                      <b>Fuzz-lean:</b> Executes every endpoint+method once to
+                      see if bugs can be found quickly
+                    </li>
+                    <li>
+                      <b>Fuzz:</b> The full fuzzing process is run, executing
+                      any number of requests to endpoints
+                    </li>
+                  </ul>
+                </div>
+                <br />
+                <a href="run/upload.html"
+                  ><button type="button" class="btn btn-outline-dark">
+                    Get Started
+                  </button></a
+                >
               </div>
             </div>
-            <div class="row">
-              <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-body"><b>Last RESTler Run: </b>10:42 AM</div>
-                </div>
+            <div class="card mb-4">
+              <div class="card-header process_heading">
+                <b>Quick Links</b>
               </div>
-              <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-body">
-                    <b>API Spec Used: </b>swagger.json
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xl-6">
-                <div class="card bg-success mb-4">
-                  <div class="card-header process_heading">
-                    <b>Compile Process</b>
-                    <button
-                      type="button"
-                      id="compile_button"
-                      class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
-                    <script>
-                      compile_button.addEventListener(
-                        "click",
-                        async function (e) {
-                          try {
-                            const { stdout, stderr } = await fetch(
-                              "http://localhost/run/compile",
-                              { method: "POST" }
-                            ).then((res) => res.json());
-                            console.log(stdout, stderr);
-                            window.location.reload();
-                          } catch (err) {
-                            console.error(
-                              "error occured while pinging server",
-                              err
-                            );
-                          }
-                        }
-                      );
-                    </script>
-                  </div>
-                  <div id="compile_success" class="card-body">
-                    <p id="compile_process">
-                      <script>
-                        fetch(
-                          "http://localhost/file/process_data/compile_process.txt"
-                        )
-                          .then((response) => response.text())
-                          .then((textString) => {
-                            console.log(textString);
-                            document.getElementById(
-                              "compile_process"
-                            ).innerText = textString;
-                          })
-                          .catch(function (err) {
-                            // There was an error
-                            console.warn("Something went wrong.", err);
-                          });
-                        var node1 = document.createElement("DIV");
-                        node1.className = "card-body";
-                        var node2 = document.createElement("P");
-                        // var node2text = document.createTextNode("Success");
-                        node2.id = "nodee";
-                        // node2.appendChild(node2text);
-                        // node1.appendChild(node2);
-                        document
-                          .getElementById("compile_success")
-                          .appendChild(node2);
-                        document.getElementById("nodee").innerText = "Success";
-                      </script>
-                    </p>
-                  </div>
-                  <div
-                    class="
-                      card-footer
-                      d-flex
-                      align-items-center
-                      justify-content-between
-                    "
-                  >
-                    <a class="small text-black" href="compile.html"
-                      >View Details</a
-                    >
-                    <div class="small text-black">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-6">
-                <div class="card bg-danger mb-4">
-                  <div class="card-header process_heading">
-                    <b>Test Process</b>
-                    <button
-                      type="button"
-                      id="test_button"
-                      class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
-                    <script>
-                      test_button.addEventListener("click", async function (e) {
-                        try {
-                          const { stdout, stderr } = await fetch(
-                            "http://localhost/run/test",
-                            { method: "POST" }
-                          ).then((res) => res.json());
-                          console.log(stdout, stderr);
-                        } catch (err) {
-                          console.error(
-                            "error occured while pinging server",
-                            err
-                          );
-                        }
-                      });
-                    </script>
-                  </div>
-                  <div class="card-body">
-                    <p>
-                      <iframe
-                        src="data/test_process.txt"
-                        width="100%"
-                        height="120"
-                        frameborder="0"
-                      ></iframe>
-                    </p>
-                  </div>
-                  <div
-                    class="
-                      card-footer
-                      d-flex
-                      align-items-center
-                      justify-content-between
-                    "
-                  >
-                    <a class="small text-black" href="test.html"
-                      >View Details</a
-                    >
-                    <div class="small text-black">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xl-6">
-                <div class="card bg-success mb-4">
-                  <div class="card-header process_heading">
-                    <b>Fuzz-lean Process</b>
-                    <button
-                      type="button"
-                      id="fuzzlean_button"
-                      class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
-                    <script>
-                      fuzzlean_button.addEventListener(
-                        "click",
-                        async function (e) {
-                          try {
-                            const { stdout, stderr } = await fetch(
-                              "http://localhost/run/fuzzlean",
-                              { method: "POST" }
-                            ).then((res) => res.json());
-                            console.log(stdout, stderr);
-                          } catch (err) {
-                            console.error(
-                              "error occured while pinging server",
-                              err
-                            );
-                          }
-                        }
-                      );
-                    </script>
-                  </div>
-                  <div class="card-body">
-                    <p>
-                      <iframe
-                        src="data/fuzzlean_process.txt"
-                        width="100%"
-                        height="200"
-                        frameborder="0"
-                      ></iframe>
-                    </p>
-                  </div>
-                  <div
-                    class="
-                      card-footer
-                      d-flex
-                      align-items-center
-                      justify-content-between
-                    "
-                  >
-                    <a class="small text-black" href="fuzzlean.html"
-                      >View Details</a
-                    >
-                    <div class="small text-black">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-6">
-                <div class="card bg-warning mb-4">
-                  <div class="card-header process_heading">
-                    <b>Fuzz Process</b>
-                    <button
-                      type="button"
-                      id="fuzz_button"
-                      class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
-                    <script>
-                      fuzz_button.addEventListener("click", async function (e) {
-                        try {
-                          const { stdout, stderr } = await fetch(
-                            "http://localhost/run/fuzz",
-                            { method: "POST" }
-                          ).then((res) => res.json());
-                          console.log(stdout, stderr);
-                        } catch (err) {
-                          console.error(
-                            "error occured while pinging server",
-                            err
-                          );
-                        }
-                      });
-                    </script>
-                  </div>
-                  <div class="card-body card-height">
-                    <div class="col center">
-                      <image
-                        src="assets/img/process_error.png"
-                        width="110"
-                        height="100"
-                      >
-                      </image>
-                      <p>The Fuzz Process has not been executed.</p>
-                    </div>
-                    <!-- <p><iframe src="data/fuzz_process.txt" width=100% height=200 frameborder=0 ></iframe></p>  -->
-                  </div>
-                  <div
-                    class="
-                      card-footer
-                      d-flex
-                      align-items-center
-                      justify-content-between
-                    "
-                  >
-                    <a class="small text-black" href="fuzz.html"
-                      >View Details</a
-                    >
-                    <div class="small text-black">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
+              <div class="card-body">
+                <a
+                  href="https://github.com/cohesity/restler-fuzzer"
+                  target="_blank"
+                  ><img src="assets/img/github.png" style="width: 85px"
+                /></a>
+                <br />
+                <br />
+                <a
+                  href="https://confluence.cohesity.com/display/IRIST/Restler+Fuzzer"
+                  target="_blank"
+                  ><img src="assets/img/confluence.png" style="width: 180px"
+                /></a>
               </div>
             </div>
           </div>

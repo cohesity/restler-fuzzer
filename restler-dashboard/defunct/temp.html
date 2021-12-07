@@ -1,0 +1,29 @@
+<div id="compile_success" class="card-body">
+  <p id="compile_process">
+    <script>
+      fetch("http://localhost/file/process_data/compile_process.txt")
+        .then((response) => response.text())
+        .then((textString) => {
+          console.log(textString);
+          document.getElementById("compile_process").innerText = textString;
+        })
+        .catch(function (err) {
+          // There was an error
+          console.warn("Something went wrong.", err);
+        });
+
+      var node = document.createElement("LI"); // Create a <li> node
+      var textnode = document.createTextNode("Water"); // Create a text node
+      node.appendChild(textnode); // Append the text to <li>
+      document.getElementById("myList").appendChild(node); // Append <li> to <ul> with id="myList"
+    </script>
+  </p>
+</div>
+
+<div class="card-body card-height">
+  <div class="col center">
+    <image src="assets/img/process_error.png" width="110" height="100"> </image>
+    <p>The Fuzz Process has not been executed.</p>
+  </div>
+  <!-- <p><iframe src="data/fuzz_process.txt" width=100% height=200 frameborder=0 ></iframe></p>  -->
+</div>
