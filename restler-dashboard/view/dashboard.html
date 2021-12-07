@@ -14,7 +14,7 @@
       href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
       rel="stylesheet"
     />
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
       crossorigin="anonymous"
@@ -23,7 +23,7 @@
   <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
       <!-- Navbar Brand-->
-      <a class="navbar-brand ps-3" href="index.html">RESTler Dashboard</a>
+      <a class="navbar-brand ps-3" href="../index.html">RESTler Dashboard</a>
       <!-- Sidebar Toggle-->
       <button
         class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
@@ -39,41 +39,53 @@
           <div class="sb-sidenav-menu">
             <div class="nav">
               <div class="sb-sidenav-menu-heading">Core</div>
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="../index.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-home"></i>
+                </div>
+                Home
+              </a>
+              <div class="sb-sidenav-menu-heading">Run</div>
+              <a class="nav-link" href="../run/upload.html">
                 <div class="sb-nav-link-icon">
                   <i class="fas fa-tachometer-alt"></i>
                 </div>
+                Upload
+              </a>
+              <a class="nav-link" href="../run/configure.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-tachometer-alt"></i>
+                </div>
+                Configure
+              </a>
+              <a class="nav-link" href="../run/execute.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-tachometer-alt"></i>
+                </div>
+                Execute
+              </a>
+              <div class="sb-sidenav-menu-heading">View</div>
+              <a class="nav-link" href="../view/dashboard.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
                 Dashboard
               </a>
-              <div class="sb-sidenav-menu-heading">Processes</div>
-              <a class="nav-link" href="compile.html">
+              <a class="nav-link" href="../view/compile.html">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Compile
               </a>
-              <a class="nav-link" href="test.html">
+              <a class="nav-link" href="../view/test.html">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Test
               </a>
-              <a class="nav-link" href="fuzzlean.html">
+              <a class="nav-link" href="../view/fuzzlean.html">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Fuzz-lean
               </a>
-              <a class="nav-link" href="fuzz.html">
+              <a class="nav-link" href="../view/fuzz.html">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Fuzz
-              </a>
-              <div class="sb-sidenav-menu-heading">Settings</div>
-              <a class="nav-link" href="config.html">
-                <div class="sb-nav-link-icon">
-                  <i class="fas fa-cog"></i>
-                </div>
-                Config
-              </a>
-              <a class="nav-link" href="tools.html">
-                <div class="sb-nav-link-icon">
-                  <i class="fas fa-cog"></i>
-                </div>
-                Tools
               </a>
             </div>
           </div>
@@ -88,9 +100,9 @@
             </ol>
             <div class="card mb-4">
               <div class="card-body">
-                Click <a href="config.html">here</a> to configure RESTler
+                Click <a href="../config.html">here</a> to configure RESTler
                 settings required for a run. Click
-                <a href="tools.html">here</a> to use tools to help start a
+                <a href="../tools.html">here</a> to use tools to help start a
                 RESTler run.
               </div>
             </div>
@@ -180,7 +192,7 @@
                       justify-content-between
                     "
                   >
-                    <a class="small text-black" href="compile.html"
+                    <a class="small text-black" href="./compile.html"
                       >View Details</a
                     >
                     <div class="small text-black">
@@ -220,7 +232,7 @@
                   <div class="card-body">
                     <p>
                       <iframe
-                        src="data/test_process.txt"
+                        src="../data/test_process.txt"
                         width="100%"
                         height="120"
                         frameborder="0"
@@ -235,7 +247,7 @@
                       justify-content-between
                     "
                   >
-                    <a class="small text-black" href="test.html"
+                    <a class="small text-black" href="./test.html"
                       >View Details</a
                     >
                     <div class="small text-black">
@@ -280,7 +292,7 @@
                   <div class="card-body">
                     <p>
                       <iframe
-                        src="data/fuzzlean_process.txt"
+                        src="../data/fuzzlean_process.txt"
                         width="100%"
                         height="200"
                         frameborder="0"
@@ -295,7 +307,7 @@
                       justify-content-between
                     "
                   >
-                    <a class="small text-black" href="fuzzlean.html"
+                    <a class="small text-black" href="./fuzzlean.html"
                       >View Details</a
                     >
                     <div class="small text-black">
@@ -335,7 +347,7 @@
                   <div class="card-body card-height">
                     <div class="col center">
                       <image
-                        src="assets/img/process_error.png"
+                        src="../assets/img/process_error.png"
                         width="110"
                         height="100"
                       >
@@ -352,7 +364,7 @@
                       justify-content-between
                     "
                   >
-                    <a class="small text-black" href="fuzz.html"
+                    <a class="small text-black" href="./fuzz.html"
                       >View Details</a
                     >
                     <div class="small text-black">

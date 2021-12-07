@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - RESTler</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
+      rel="stylesheet"
+    />
+    <link href="../css/styles.css" rel="stylesheet" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+      <!-- Navbar Brand-->
+      <a class="navbar-brand ps-3" href="../index.html">RESTler Dashboard</a>
+      <!-- Sidebar Toggle-->
+      <button
+        class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+        id="sidebarToggle"
+        href="#!"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    <div id="layoutSidenav">
+      <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+          <div class="sb-sidenav-menu">
+            <div class="nav">
+              <div class="sb-sidenav-menu-heading">Core</div>
+              <a class="nav-link" href="../index.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-home"></i>
+                </div>
+                Home
+              </a>
+              <div class="sb-sidenav-menu-heading">Run</div>
+              <a class="nav-link" href="../run/upload.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-tachometer-alt"></i>
+                </div>
+                Upload
+              </a>
+              <a class="nav-link" href="../run/configure.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-tachometer-alt"></i>
+                </div>
+                Configure
+              </a>
+              <a class="nav-link" href="../run/execute.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-tachometer-alt"></i>
+                </div>
+                Execute
+              </a>
+              <div class="sb-sidenav-menu-heading">View</div>
+              <a class="nav-link" href="../view/dashboard.html">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                Dashboard
+              </a>
+              <a class="nav-link" href="../view/compile.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Compile
+              </a>
+              <a class="nav-link" href="../view/test.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Test
+              </a>
+              <a class="nav-link" href="../view/fuzzlean.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Fuzz-lean
+              </a>
+              <a class="nav-link" href="../view/fuzz.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Fuzz
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div id="layoutSidenav_content">
+        <main>
+          <div class="container-fluid px-4">
+            <h1 class="mt-4">Step 1 of 3: Upload</h1>
+            <ol class="breadcrumb mb-4">
+              <li class="breadcrumb-item active">Run</li>
+            </ol>
+            <div class="card mb-4">
+              <div class="card-body">
+                <div>
+                  RESTler requires a valid YAML file so that the engine can
+                  parse and eventually run the fuzzing process on it.
+                </div>
+                <br />
+                <div>
+                  To upload a valid YAML spec choose <b>ONE</b> of the following
+                  options.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- add new row element -->
+              <div class="col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-header process_heading">
+                    <b>Option 1: Local YAML Upload</b>
+                  </div>
+                  <div class="card-body">
+                    <p>Choose and upload a YAML file from your computer.</p>
+                    <label for="formFile" class="form-label"
+                      ><b>API Spec:</b></label
+                    >
+                    <input
+                      class="form-control"
+                      type="file"
+                      id="upload_apispec"
+                    />
+                    <br />
+                    <button
+                      type="button"
+                      id="btn_apispec"
+                      class="btn btn-outline-dark"
+                    >
+                      Upload
+                    </button>
+                    <script>
+                      const myInput = document.getElementById("upload_apispec");
+                      btn_apispec.addEventListener("click", function () {
+                        console.log(myInput.files[0]);
+                        var filename = myInput.files[0].name;
+                        fetch("http://localhost/upload/" + filename, {
+                          method: "POST",
+                          body: myInput.files[0],
+                        });
+                      });
+                    </script>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-header process_heading">
+                    <b> Option 2: Cluster VIP Upload</b>
+                  </div>
+                  <div class="card-body">
+                    <p>
+                      Input a valid Cohesity Cluster VIP in the following text
+                      box then click upload.
+                      <br />
+                      <br />
+                      This will automatically submit a unified Cohesity YAML
+                      corresponding to the specified cluster.
+                    </p>
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="input_pk"
+                        placeholder="Enter Cluster VIP"
+                      />
+                      <br />
+                      <button
+                        type="button"
+                        id="btn_pk"
+                        class="btn btn-outline-dark"
+                      >
+                        Upload
+                      </button>
+                      <script>
+                        btn_pk.addEventListener("click", function () {
+                          var myInput =
+                            document.getElementById("input_pk").value;
+                          fetch("http://localhost/download/" + myInput, {
+                            method: "GET",
+                            headers: {
+                              "Content-Type": "application/yaml",
+                            },
+                          })
+                            .then((response) => response.blob())
+                            .then((blob) => {
+                              // Create blob link to download
+                              const url = window.URL.createObjectURL(
+                                new Blob([blob])
+                              );
+                              const link = document.createElement("a");
+                              link.href = url;
+                              link.setAttribute(
+                                "download",
+                                "coh_api_" + myInput + ".yaml"
+                              );
+                              // Append to html link element page
+                              document.body.appendChild(link);
+                              // Start download
+                              link.click();
+                              // Clean up and remove the link
+                              link.parentNode.removeChild(link);
+                            });
+                        });
+                      </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="./configure.html"
+                ><button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  style="float: right"
+                >
+                  Next Step
+                </button></a
+              >
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/scripts.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script src="assets/demo/chart-area-demo.js"></script>
+    <script src="assets/demo/chart-bar-demo.js"></script> -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/datatables.js"></script>
+  </body>
+</html>
