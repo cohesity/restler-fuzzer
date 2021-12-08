@@ -141,34 +141,39 @@
                         include_upload_btn.disabled = true;
                         include_upload_btn.value = "Uploading…";
                         const { stdout, stderr } = await fetch(
-                          "http://localhost/upload/include",
+                          "http://localhost/upload/include/null",
                           { method: "POST", body: include_file }
-                        );
-                        include_upload_btn.value = "Upload";
-                        include_upload_btn.disabled = false;
+                        ).then((response) => {
+                          console.log("request successful");
+                          include_upload_btn.value = "Upload";
+                          include_upload_btn.disabled = false;
+                        });
                       } catch (err) {
                         console.log(
-                          "ERROR: Something went wrong while pinging server",
-                          err
+                          "ERROR: Something went wrong while pinging server"
                         );
+                        console.log("Details" + err);
                         include_upload_btn.value = "Upload";
                         include_upload_btn.disabled = false;
                       }
                     }
 
-                    include_upload_btn.addEventListener("click", function () {
-                      include_upload =
-                        document.getElementById("include_upload").value;
-                      if (include_upload == "") {
-                        // if nothing is uploaded
-                        console.log("ERROR: No include file was uploaded.");
-                      } else {
-                        // if a file is uploaded
-                        include_file =
-                          document.getElementById("include_upload").files[0];
-                        IncludeUpload(include_file);
+                    include_upload_btn.addEventListener(
+                      "click",
+                      async function () {
+                        include_upload =
+                          document.getElementById("include_upload").value;
+                        if (include_upload == "") {
+                          // if nothing is uploaded
+                          console.log("ERROR: No include file was uploaded.");
+                        } else {
+                          // if a file is uploaded
+                          include_file =
+                            document.getElementById("include_upload").files[0];
+                          return IncludeUpload(include_file);
+                        }
                       }
-                    });
+                    );
                   </script>
                 </div>
               </div>
@@ -207,7 +212,7 @@
                         dict_upload_btn.disabled = true;
                         dict_upload_btn.value = "Uploading…";
                         const { stdout, stderr } = await fetch(
-                          "http://localhost/upload/dict",
+                          "http://localhost/upload/dict/null",
                           { method: "POST", body: dict_file }
                         );
                         dict_upload_btn.value = "Upload";

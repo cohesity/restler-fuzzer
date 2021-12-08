@@ -89,37 +89,88 @@ function getFile(req, res) {
   });
 }
 
-app.post("/upload/:filename", uploadFile);
+app.post("/upload/:type/:argument", uploadFile);
 
-function uploadFile(req, res) {
-  var filename = req.params["filename"];
-  var ext = filename.split(".").pop();
-  console.log("uploads/spec." + ext);
-  if (ext == "json") {
-    // console.log(req.body);
-    fs.writeFile(
-      "uploads/spec." + ext,
-      JSON.stringify(req.body, null, "\t"),
-      (err) => {
-        if (err) return next(err);
-      }
-    );
-  } else if (ext == "yaml") {
-    console.log(req.body);
-    console.log(YAML.stringify(req.body, null, "\t"));
-    fs.writeFile(
-      "uploads/spec." + ext,
-      YAML.stringify(req.body, null, "\t"),
-      (err) => {
-        if (err) return next(err);
-      }
-    );
-  }
-
-  console.log("Received " + filename + ".");
+function onpremUpload(vip, res) {
+  // remove coh.yaml if it exists
+  // add an onprem.yaml to uploads/
+  // replace host with the vip
+  // change the name to coh.yaml
+  // convert coh_api.yaml to json
+  var old_filename = "./uploads/coh_api.yaml";
+  var onprem_filename = "./scripts/coh_api.yaml";
+  exec("cp " + onprem_filename + " ./uploads", (err, stdout, stderr) => {
+    console.log(stderr);
+  });
+  exec(
+    "python3 scripts/host.py " +
+      onprem_filename +
+      " " +
+      old_filename +
+      " " +
+      vip,
+    (err, stdout, stderr) => {
+      console.log(stderr);
+    }
+  );
+  var cmd = "yaml2json uploads/coh_api.yaml uploads/coh_api.json";
+  exec(cmd, (err, stdout, stderr) => {
+    res.json({
+      // respond to client if the command was done
+      stdout: "Process executed.",
+      stderr: "" + stderr,
+    });
+  });
 }
 
-app.get("/download/:privateKey", downloadSpec);
+function includeUpload(json_obj, res) {
+  // remove include.json if it exists
+  // add include.json to uploads/
+  // run split.py on the coh.yaml and endpoints.json
+  // the output should be an updated coh.yaml
+  var old_filename = "./uploads/include.json";
+  fs.writeFile(old_filename, JSON.stringify(json_obj, null, "\t"), (err) => {
+    if (err) return next(err);
+  });
+  console.log("new include.json written");
+  exec(
+    "python3 scripts/split.py uploads/coh_api.yaml uploads/coh_api_s.yaml",
+    (err, stdout, stderr) => {
+      res.json({
+        // respond to client if the command was done
+        stdout: "Process executed.",
+        stderr: "" + stderr,
+      });
+    }
+  );
+  console.log("coh yaml split");
+  return;
+}
+
+function uploadFile(req, res) {
+  var type = req.params["type"];
+  var argument = req.params["argument"];
+  if (type == "helios") {
+    // TODO:
+  } else if (type == "onprem") {
+    onpremUpload(argument, res);
+  } else if (type == "include") {
+    includeUpload(req.body, res);
+  } else if (type == "dict") {
+    // TODO:
+  } else if (type == "limit") {
+    // TODO:
+  } else {
+    console.log("Invalid upload type");
+  }
+  // res.json({
+  //   // respond to client if the command was done
+  //   stdout: "Request complete.",
+  // });
+  console.log("Received a " + type + " upload with type " + argument);
+}
+
+app.get("/download/:privateKey", downloadSpec); // DEFUNCT
 
 function downloadSpec(req, res) {
   var privateKey = req.params["privateKey"];
@@ -141,7 +192,7 @@ function downloadSpec(req, res) {
   });
 }
 
-app.get("/convert", convertSpec);
+app.get("/convert", convertSpec); // DEFUNCT
 
 function convertSpec(req, res) {
   // TODO: this shouldnt be uploads/coh_api.yaml, should be uploads/spec.yaml
@@ -160,7 +211,7 @@ function convertSpec(req, res) {
   });
 }
 
-app.get("/split", splitSpec);
+app.get("/split", splitSpec); // DEFUNCT
 
 function splitSpec(req, res) {
   // TODO: this shouldnt be uploads/coh_api.yaml, should be uploads/spec.yaml

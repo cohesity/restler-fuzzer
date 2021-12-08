@@ -42,18 +42,9 @@ def split_spec(args):
     '''
     try:
         yaml_object = load_yaml(args.input_yaml)
-        with open('uploads/include.json') as f: # path is relative to where split.py is called from
-            endpoints = json.load(f)
-        for path in list(yaml_object['paths']):
-            found = False
-            for endpoint in endpoints['include']:
-                if path == endpoint:
-                    found = True
-                    break
-            if not found or len(yaml_object['paths'][path]) == 0:
-               del yaml_object['paths'][path] 
-            else:
-                print("Include " + path)
+        yaml_object['host'] = int(args.vip)
+        # for host in yaml_object['host']:
+        #     print(host)
         dump_yaml(yaml_object, args.output_yaml)
     except Exception as e:
         print(str(e))
@@ -62,6 +53,7 @@ if __name__ == '__main__':
         description="Arguments needed to remove internal APIs from yaml")
     parser.add_argument("input_yaml", help="Path of input yaml file")
     parser.add_argument("output_yaml", help="Path of output yaml file")
+    parser.add_argument("vip", help="Cluster VIP")
     args = parser.parse_args()
     split_spec(args)
 
