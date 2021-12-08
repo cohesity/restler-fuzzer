@@ -121,40 +121,30 @@
                 <div class="card mb-4">
                   <div class="card-header process_heading">
                     <b>1. Compile</b>
-                    <button
+                    <input
                       type="button"
-                      id="btn_convert"
+                      id="compile_btn"
                       class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
+                      value="Run Process"
+                    />
                     <script>
-                      btn_convert.addEventListener("click", function () {
-                        fetch("http://localhost/convert", {
-                          method: "GET",
-                          headers: {
-                            "Content-Type": "application/json",
-                          },
-                        })
-                          .then((response) => response.blob())
-                          .then((blob) => {
-                            // Create blob link to download
-                            const url = window.URL.createObjectURL(
-                              new Blob([blob])
-                            );
-                            const link = document.createElement("a");
-                            link.href = url;
-                            link.setAttribute(
-                              "download",
-                              "coh_api_converted.json"
-                            );
-                            // Append to html link element page
-                            document.body.appendChild(link);
-                            // Start download
-                            link.click();
-                            // Clean up and remove the link
-                            link.parentNode.removeChild(link);
-                          });
+                      compile_btn.addEventListener("click", async function (e) {
+                        try {
+                          compile_btn.disabled = true;
+                          compile_btn.value = "Running...";
+                          const { stdout, stderr } = await fetch(
+                            "http://localhost/run/compile",
+                            { method: "POST" }
+                          ).then((res) => res.json());
+                          document.location.href = "../view/compile.html";
+                        } catch (err) {
+                          console.log(
+                            "ERROR: Something went wrong while pinging server",
+                            err
+                          );
+                          compile_btn.value = "Run Process";
+                          compile_btn.disabled = false;
+                        }
                       });
                     </script>
                   </div>
@@ -168,13 +158,32 @@
                 <div class="card mb-4">
                   <div class="card-header process_heading">
                     <b>2. Test</b>
-                    <button
+                    <input
                       type="button"
-                      id="btn_convert"
+                      id="test_btn"
                       class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
+                      value="Run Process"
+                    />
+                    <script>
+                      test_btn.addEventListener("click", async function (e) {
+                        try {
+                          test_btn.disabled = true;
+                          test_btn.value = "Running...";
+                          const { stdout, stderr } = await fetch(
+                            "http://localhost/run/test",
+                            { method: "POST" }
+                          ).then((res) => res.json());
+                          document.location.href = "../view/test.html";
+                        } catch (err) {
+                          console.log(
+                            "ERROR: Something went wrong while pinging server",
+                            err
+                          );
+                          test_btn.value = "Run Process";
+                          test_btn.disabled = false;
+                        }
+                      });
+                    </script>
                   </div>
                   <div class="card-body">
                     Quickly executes all of the endpoints+methods in a compiled
@@ -190,13 +199,35 @@
                 <div class="card mb-4">
                   <div class="card-header process_heading">
                     <b>3. Fuzz-lean</b>
-                    <button
+                    <input
                       type="button"
-                      id="btn_convert"
+                      id="fuzzlean_btn"
                       class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
+                      value="Run Process"
+                    />
+                    <script>
+                      fuzzlean_btn.addEventListener(
+                        "click",
+                        async function (e) {
+                          try {
+                            fuzzlean_btn.disabled = true;
+                            fuzzlean_btn.value = "Running...";
+                            const { stdout, stderr } = await fetch(
+                              "http://localhost/run/fuzzlean",
+                              { method: "POST" }
+                            ).then((res) => res.json());
+                            document.location.href = "../view/fuzzlean.html";
+                          } catch (err) {
+                            console.log(
+                              "ERROR: Something went wrong while pinging server",
+                              err
+                            );
+                            fuzzlean_btn.value = "Run Process";
+                            fuzzlean_btn.disabled = false;
+                          }
+                        }
+                      );
+                    </script>
                   </div>
                   <div class="card-body">
                     Executes every endpoint+method once in a compiled RESTler
@@ -209,13 +240,32 @@
                 <div class="card mb-4">
                   <div class="card-header process_heading">
                     <b>4. Fuzz</b>
-                    <button
+                    <input
                       type="button"
-                      id="btn_convert"
+                      id="fuzz_btn"
                       class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
+                      value="Run Process"
+                    />
+                    <script>
+                      fuzz_btn.addEventListener("click", async function (e) {
+                        try {
+                          fuzz_btn.disabled = true;
+                          fuzz_btn.value = "Running...";
+                          const { stdout, stderr } = await fetch(
+                            "http://localhost/run/fuzz",
+                            { method: "POST" }
+                          ).then((res) => res.json());
+                          document.location.href = "../view/fuzz.html";
+                        } catch (err) {
+                          console.log(
+                            "ERROR: Something went wrong while pinging server",
+                            err
+                          );
+                          fuzz_btn.value = "Run Process";
+                          fuzz_btn.disabled = false;
+                        }
+                      });
+                    </script>
                   </div>
                   <div class="card-body">
                     Bug hunting - explore a RESTler fuzzing grammar in smart
@@ -234,13 +284,32 @@
                 <div class="card mb-4">
                   <div class="card-header process_heading">
                     <b>All Processes</b>
-                    <button
+                    <input
                       type="button"
-                      id="btn_convert"
+                      id="all_btn"
                       class="btn btn-outline-dark button_example"
-                    >
-                      Run Processes
-                    </button>
+                      value="Run Processes"
+                    />
+                    <script>
+                      all_btn.addEventListener("click", async function (e) {
+                        try {
+                          all_btn.disabled = true;
+                          all_btn.value = "Running...";
+                          const { stdout, stderr } = await fetch(
+                            "http://localhost/run/all",
+                            { method: "POST" }
+                          ).then((res) => res.json());
+                          document.location.href = "../view/dashboard.html";
+                        } catch (err) {
+                          console.log(
+                            "ERROR: Something went wrong while pinging server",
+                            err
+                          );
+                          all_btn.value = "Run Process";
+                          all_btn.disabled = false;
+                        }
+                      });
+                    </script>
                   </div>
                   <div class="card-body">
                     Will execute all processes in the order Compile, Test,
@@ -261,17 +330,5 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"
     ></script>
-    <script src="js/scripts.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script> -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/datatables.js"></script>
   </body>
 </html>
