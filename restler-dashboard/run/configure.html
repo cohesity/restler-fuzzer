@@ -129,22 +129,47 @@
                   </p>
                   <input class="form-control" type="file" id="upload_apispec" />
                   <br />
-                  <button
+                  <input
                     type="button"
-                    id="btn_apispec"
+                    id="include_upload"
                     class="btn btn-outline-dark"
-                  >
-                    Upload
-                  </button>
+                    value="Upload"
+                  />
+
                   <script>
-                    const myInput = document.getElementById("upload_apispec");
-                    btn_apispec.addEventListener("click", function () {
-                      console.log(myInput.files[0]);
-                      var filename = myInput.files[0].name;
-                      fetch("http://localhost/upload/" + filename, {
-                        method: "POST",
-                        body: myInput.files[0],
-                      });
+                    // add js
+                    ext_step.addEventListener("click", function () {
+                      include_upload =
+                        document.getElementById("include_upload").value;
+                      if (
+                        spec_upload == "" &&
+                        ip_upload == "" &&
+                        vip_upload == ""
+                      ) {
+                        console.log("ERROR: No include file was uploaded.");
+                      } else if (spec_upload != "" || ip_upload != "") {
+                        // Assume Option 1 was chosen
+                        if (spec_upload == "") {
+                          console.log("ERROR: Please upload a valid API spec.");
+                        } else if (ip_upload == "") {
+                          console.log(
+                            "ERROR: Please upload a valid IP address."
+                          );
+                        } else {
+                          api_spec =
+                            document.getElementById("spec_upload").files[0];
+                          HeliosUpload(api_spec, ip_upload);
+                        }
+                      } else {
+                        // Assume Option 2 was chosen
+                        if (vip_upload == "") {
+                          console.log(
+                            "ERROR: Please upload a valid cluster VIP."
+                          );
+                        } else {
+                          OnPremUpload(vip_upload);
+                        }
+                      }
                     });
                   </script>
                 </div>
@@ -180,15 +205,7 @@
                     Upload
                   </button>
                   <script>
-                    const myInput = document.getElementById("upload_apispec");
-                    btn_apispec.addEventListener("click", function () {
-                      console.log(myInput.files[0]);
-                      var filename = myInput.files[0].name;
-                      fetch("http://localhost/upload/" + filename, {
-                        method: "POST",
-                        body: myInput.files[0],
-                      });
-                    });
+                    // add JS
                   </script>
                 </div>
               </div>
@@ -223,34 +240,7 @@
                       Upload
                     </button>
                     <script>
-                      btn_pk.addEventListener("click", function () {
-                        var myInput = document.getElementById("input_pk").value;
-                        fetch("http://localhost/download/" + myInput, {
-                          method: "GET",
-                          headers: {
-                            "Content-Type": "application/yaml",
-                          },
-                        })
-                          .then((response) => response.blob())
-                          .then((blob) => {
-                            // Create blob link to download
-                            const url = window.URL.createObjectURL(
-                              new Blob([blob])
-                            );
-                            const link = document.createElement("a");
-                            link.href = url;
-                            link.setAttribute(
-                              "download",
-                              "coh_api_" + myInput + ".yaml"
-                            );
-                            // Append to html link element page
-                            document.body.appendChild(link);
-                            // Start download
-                            link.click();
-                            // Clean up and remove the link
-                            link.parentNode.removeChild(link);
-                          });
-                      });
+                      // add JS
                     </script>
                   </div>
                 </div>

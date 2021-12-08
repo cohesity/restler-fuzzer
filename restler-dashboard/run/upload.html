@@ -116,133 +116,138 @@
               <div class="col-xl-6">
                 <div class="card mb-4">
                   <div class="card-header process_heading">
-                    <b>Option 1: Local YAML Upload</b>
+                    <b>Option 1: Helios Upload</b>
                   </div>
                   <div class="card-body">
-                    <p>Choose and upload a YAML file from your computer.</p>
-                    <label for="formFile" class="form-label"
-                      ><b>API Spec:</b></label
-                    >
+                    <p>
+                      Choose and upload a YAML file from your computer.
+                      <br />
+                      <br />
+                      Then input a valid IP address/FQDN and click Next Step.
+                    </p>
+                    <input class="form-control" type="file" id="spec_upload" />
+                    <br />
                     <input
+                      type="text"
                       class="form-control"
-                      type="file"
-                      id="upload_apispec"
+                      id="ip_upload"
+                      placeholder="Enter IP Address or FQDN"
                     />
                     <br />
-                    <button
-                      type="button"
-                      id="btn_apispec"
-                      class="btn btn-outline-dark"
-                    >
-                      Upload
-                    </button>
-                    <script>
-                      const myInput = document.getElementById("upload_apispec");
-                      btn_apispec.addEventListener("click", function () {
-                        console.log(myInput.files[0]);
-                        var filename = myInput.files[0].name;
-                        fetch("http://localhost/upload/" + filename, {
-                          method: "POST",
-                          body: myInput.files[0],
-                        });
-                      });
-                    </script>
                   </div>
                 </div>
               </div>
               <div class="col-xl-6">
                 <div class="card mb-4">
                   <div class="card-header process_heading">
-                    <b> Option 2: Cluster VIP Upload</b>
+                    <b> Option 2: OnPrem Cluster Upload</b>
                   </div>
                   <div class="card-body">
                     <p>
                       Input a valid Cohesity Cluster VIP in the following text
-                      box then click upload.
+                      box then Next Step.
                       <br />
                       <br />
-                      This will automatically submit a unified Cohesity YAML
-                      corresponding to the specified cluster.
+                      This will automatically submit a Cohesity YAML
+                      corresponding to the specified OnPrem cluster.
                     </p>
                     <div class="form-group">
                       <input
                         type="text"
                         class="form-control"
-                        id="input_pk"
+                        id="vip_upload"
                         placeholder="Enter Cluster VIP"
                       />
                       <br />
-                      <button
-                        type="button"
-                        id="btn_pk"
-                        class="btn btn-outline-dark"
-                      >
-                        Upload
-                      </button>
-                      <script>
-                        btn_pk.addEventListener("click", function () {
-                          var myInput =
-                            document.getElementById("input_pk").value;
-                          fetch("http://localhost/download/" + myInput, {
-                            method: "GET",
-                            headers: {
-                              "Content-Type": "application/yaml",
-                            },
-                          })
-                            .then((response) => response.blob())
-                            .then((blob) => {
-                              // Create blob link to download
-                              const url = window.URL.createObjectURL(
-                                new Blob([blob])
-                              );
-                              const link = document.createElement("a");
-                              link.href = url;
-                              link.setAttribute(
-                                "download",
-                                "coh_api_" + myInput + ".yaml"
-                              );
-                              // Append to html link element page
-                              document.body.appendChild(link);
-                              // Start download
-                              link.click();
-                              // Clean up and remove the link
-                              link.parentNode.removeChild(link);
-                            });
-                        });
-                      </script>
                     </div>
                   </div>
                 </div>
               </div>
-              <a href="./configure.html"
-                ><button
+              <div>
+                <input
                   type="button"
+                  id="next_step"
                   class="btn btn-outline-dark"
-                  style="float: right"
-                >
-                  Next Step
-                </button></a
-              >
+                  value="Next Step"
+                />
+                <script>
+                  async function HeliosUpload(api_spec, ip_upload) {
+                    try {
+                      next_step.disabled = true;
+                      next_step.value = "Sending…";
+                      const { stdout, stderr } = await fetch(
+                        "http://localhost/upload/helios/" + ip_upload,
+                        { method: "POST", body: myInput.files[0] }
+                      );
+                      document.location.href = "./configure.html";
+                    } catch (err) {
+                      console.log(
+                        "ERROR: Something went wrong while pinging server",
+                        err
+                      );
+                      next_step.value = "Next Step";
+                      next_step.disabled = false;
+                    }
+                  }
+
+                  async function OnPremUpload(vip_upload) {
+                    try {
+                      next_step.disabled = true;
+                      next_step.value = "Sending…";
+                      const { stdout, stderr } = await fetch(
+                        "http://localhost/upload/onprem/" + vip_upload,
+                        { method: "POST" }
+                      );
+                      document.location.href = "./configure.html";
+                    } catch (err) {
+                      console.log(
+                        "ERROR: Something went wrong while pinging server",
+                        err
+                      );
+                      next_step.value = "Next Step";
+                      next_step.disabled = false;
+                    }
+                  }
+
+                  next_step.addEventListener("click", function () {
+                    spec_upload = document.getElementById("spec_upload").value;
+                    ip_upload = document.getElementById("ip_upload").value;
+                    vip_upload = document.getElementById("vip_upload").value;
+                    if (
+                      spec_upload == "" &&
+                      ip_upload == "" &&
+                      vip_upload == ""
+                    ) {
+                      // Assume no option was chosen
+                      console.log("ERROR: No upload option was chosen.");
+                    } else if (spec_upload != "" || ip_upload != "") {
+                      // Assume Option 1 was chosen
+                      if (spec_upload == "") {
+                        console.log("ERROR: Please upload a valid API spec.");
+                      } else if (ip_upload == "") {
+                        console.log("ERROR: Please upload a valid IP address.");
+                      } else {
+                        api_spec =
+                          document.getElementById("spec_upload").files[0];
+                        HeliosUpload(api_spec, ip_upload);
+                      }
+                    } else {
+                      // Assume Option 2 was chosen
+                      if (vip_upload == "") {
+                        console.log(
+                          "ERROR: Please upload a valid cluster VIP."
+                        );
+                      } else {
+                        OnPremUpload(vip_upload);
+                      }
+                    }
+                  });
+                </script>
+              </div>
             </div>
           </div>
         </main>
       </div>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/scripts.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script> -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/datatables.js"></script>
   </body>
 </html>
