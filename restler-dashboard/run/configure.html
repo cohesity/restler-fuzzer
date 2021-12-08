@@ -127,48 +127,46 @@
                     >
                     for the syntax of this JSON file.
                   </p>
-                  <input class="form-control" type="file" id="upload_apispec" />
+                  <input class="form-control" type="file" id="include_upload" />
                   <br />
                   <input
                     type="button"
-                    id="include_upload"
+                    id="include_upload_btn"
                     class="btn btn-outline-dark"
                     value="Upload"
                   />
-
                   <script>
-                    // add js
-                    ext_step.addEventListener("click", function () {
+                    async function IncludeUpload(include_file) {
+                      try {
+                        include_upload_btn.disabled = true;
+                        include_upload_btn.value = "Uploading…";
+                        const { stdout, stderr } = await fetch(
+                          "http://localhost/upload/include",
+                          { method: "POST", body: include_file }
+                        );
+                        include_upload_btn.value = "Upload";
+                        include_upload_btn.disabled = false;
+                      } catch (err) {
+                        console.log(
+                          "ERROR: Something went wrong while pinging server",
+                          err
+                        );
+                        include_upload_btn.value = "Upload";
+                        include_upload_btn.disabled = false;
+                      }
+                    }
+
+                    include_upload_btn.addEventListener("click", function () {
                       include_upload =
                         document.getElementById("include_upload").value;
-                      if (
-                        spec_upload == "" &&
-                        ip_upload == "" &&
-                        vip_upload == ""
-                      ) {
+                      if (include_upload == "") {
+                        // if nothing is uploaded
                         console.log("ERROR: No include file was uploaded.");
-                      } else if (spec_upload != "" || ip_upload != "") {
-                        // Assume Option 1 was chosen
-                        if (spec_upload == "") {
-                          console.log("ERROR: Please upload a valid API spec.");
-                        } else if (ip_upload == "") {
-                          console.log(
-                            "ERROR: Please upload a valid IP address."
-                          );
-                        } else {
-                          api_spec =
-                            document.getElementById("spec_upload").files[0];
-                          HeliosUpload(api_spec, ip_upload);
-                        }
                       } else {
-                        // Assume Option 2 was chosen
-                        if (vip_upload == "") {
-                          console.log(
-                            "ERROR: Please upload a valid cluster VIP."
-                          );
-                        } else {
-                          OnPremUpload(vip_upload);
-                        }
+                        // if a file is uploaded
+                        include_file =
+                          document.getElementById("include_upload").files[0];
+                        IncludeUpload(include_file);
                       }
                     });
                   </script>
@@ -195,17 +193,48 @@
                     >
                     for the syntax of this JSON file.
                   </p>
-                  <input class="form-control" type="file" id="upload_apispec" />
+                  <input class="form-control" type="file" id="dict_upload" />
                   <br />
-                  <button
+                  <input
                     type="button"
-                    id="btn_apispec"
+                    id="dict_upload_btn"
                     class="btn btn-outline-dark"
-                  >
-                    Upload
-                  </button>
+                    value="Upload"
+                  />
                   <script>
-                    // add JS
+                    async function DictUpload(dict_file) {
+                      try {
+                        dict_upload_btn.disabled = true;
+                        dict_upload_btn.value = "Uploading…";
+                        const { stdout, stderr } = await fetch(
+                          "http://localhost/upload/dict",
+                          { method: "POST", body: dict_file }
+                        );
+                        dict_upload_btn.value = "Upload";
+                        dict_upload_btn.disabled = false;
+                      } catch (err) {
+                        console.log(
+                          "ERROR: Something went wrong while pinging server",
+                          err
+                        );
+                        dict_upload_btn.value = "Upload";
+                        dict_upload_btn.disabled = false;
+                      }
+                    }
+
+                    dict_upload_btn.addEventListener("click", function () {
+                      dict_upload =
+                        document.getElementById("dict_upload").value;
+                      if (dict_upload == "") {
+                        // if nothing is uploaded
+                        console.log("ERROR: No dictionary file was uploaded.");
+                      } else {
+                        // if a file is uploaded
+                        dict_file =
+                          document.getElementById("dict_upload").files[0];
+                        DictUpload(dict_file);
+                      }
+                    });
                   </script>
                 </div>
               </div>
@@ -228,19 +257,48 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="input_pk"
+                      id="limit_upload"
                       placeholder="Enter Time Limit"
                     />
                     <br />
-                    <button
+                    <input
                       type="button"
-                      id="btn_pk"
+                      id="limit_upload_btn"
                       class="btn btn-outline-dark"
-                    >
-                      Upload
-                    </button>
+                      value="Upload"
+                    />
                     <script>
-                      // add JS
+                      async function LimitUpload(limit_upload) {
+                        try {
+                          limit_upload_btn.disabled = true;
+                          limit_upload_btn.value = "Uploading…";
+                          const { stdout, stderr } = await fetch(
+                            "http://localhost/upload/limit/" + limit_upload,
+                            { method: "POST" }
+                          );
+                          limit_upload_btn.value = "Upload";
+                          limit_upload_btn.disabled = false;
+                        } catch (err) {
+                          console.log(
+                            "ERROR: Something went wrong while pinging server",
+                            err
+                          );
+                          limit_upload_btn.value = "Upload";
+                          limit_upload_btn.disabled = false;
+                        }
+                      }
+
+                      limit_upload_btn.addEventListener("click", function () {
+                        limit_upload =
+                          document.getElementById("dict_upload").value;
+                        if (dict_upload == "") {
+                          // if nothing is uploaded
+                          console.log("ERROR: No time limit was uploaded.");
+                        } else {
+                          // if a time limit is uploaded
+                          LimitUpload(limit_upload);
+                        }
+                      });
                     </script>
                   </div>
                 </div>

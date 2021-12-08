@@ -166,18 +166,18 @@
               <div>
                 <input
                   type="button"
-                  id="next_step"
+                  id="next_step_btn"
                   class="btn btn-outline-dark"
                   value="Next Step"
                 />
                 <script>
                   async function HeliosUpload(api_spec, ip_upload) {
                     try {
-                      next_step.disabled = true;
-                      next_step.value = "Sending…";
+                      next_step_btn.disabled = true;
+                      next_step_btn.value = "Sending…";
                       const { stdout, stderr } = await fetch(
                         "http://localhost/upload/helios/" + ip_upload,
-                        { method: "POST", body: myInput.files[0] }
+                        { method: "POST", body: api_spec }
                       );
                       document.location.href = "./configure.html";
                     } catch (err) {
@@ -185,15 +185,15 @@
                         "ERROR: Something went wrong while pinging server",
                         err
                       );
-                      next_step.value = "Next Step";
-                      next_step.disabled = false;
+                      next_step_btn.value = "Next Step";
+                      next_step_btn.disabled = false;
                     }
                   }
 
                   async function OnPremUpload(vip_upload) {
                     try {
-                      next_step.disabled = true;
-                      next_step.value = "Sending…";
+                      next_step_btn.disabled = true;
+                      next_step_btn.value = "Sending…";
                       const { stdout, stderr } = await fetch(
                         "http://localhost/upload/onprem/" + vip_upload,
                         { method: "POST" }
@@ -204,12 +204,12 @@
                         "ERROR: Something went wrong while pinging server",
                         err
                       );
-                      next_step.value = "Next Step";
-                      next_step.disabled = false;
+                      next_step_btn.value = "Next Step";
+                      next_step_btn.disabled = false;
                     }
                   }
 
-                  next_step.addEventListener("click", function () {
+                  next_step_btn.addEventListener("click", function () {
                     spec_upload = document.getElementById("spec_upload").value;
                     ip_upload = document.getElementById("ip_upload").value;
                     vip_upload = document.getElementById("vip_upload").value;
