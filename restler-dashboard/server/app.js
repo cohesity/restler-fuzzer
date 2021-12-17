@@ -104,18 +104,63 @@ function heliosUpload(file, ip) {
   }
 }
 
+// Includes certain endpoints based on an uploaded include.json file
+function includeUpload(file) {
+  var upload_filename = file.path;
+  var yaml_filename = "uploads/spec.yaml";
+  var json_filename = "uploads/spec.json";
+  var include_filename = "uploads/include.json";
+
+  // remove include.json if it exists
+  if (fs.existsSync(include_filename)) {
+    run_execSync("rm " + include_filename);
+  }
+
+  // rename uploaded file's default name to include.json
+  run_execSync("mv " + upload_filename + " " + include_filename);
+
+  // convert spec.json to spec.yaml
+  var cmd = "json2yaml " + json_filename + " " + yaml_filename;
+  if (fs.existsSync(json_filename)) {
+    run_execSync(cmd);
+  } else {
+    // TODO: throw error, api spec has not been uploaded
+  }
+
+  // split spec.yaml according to include.json
+  run_execSync(
+    "python3 scripts/split.py " + yaml_filename + " " + yaml_filename
+  );
+
+  // convert spec.yaml back to spec.json
+  var cmd = "yaml2json " + yaml_filename + " " + json_filename;
+  run_execSync(cmd);
+
+  // remove spec.yaml file if it exists
+  if (fs.existsSync(yaml_filename)) {
+    run_execSync("rm " + yaml_filename);
+  }
+
+  // remove uploaded file if it exists
+  if (fs.existsSync(upload_filename)) {
+    run_execSync("rm " + upload_filename);
+  }
+}
+
 // Handle requests from file upload endpoint
 function fileRequest(req, res) {
   var type = req.params["type"];
   var argument = req.params["argument"];
   if (type == "helios") {
-    // req.file is the api spec
     if (req.file.mimetype != "application/x-yaml") {
       // TODO: throw error
     }
     heliosUpload(req.file, argument);
   } else if (type == "include") {
-    // TODO:
+    if (req.file.mimetype != "application/x-json") {
+      // TODO: throw error
+    }
+    includeUpload(req.file);
   } else if (type == "dict") {
     // TODO:
   } else {

@@ -116,7 +116,7 @@
                 <div class="card-body">
                   <p>
                     Choose and upload a JSON file from your computer specifying
-                    which endpoints to enclude or exclude.
+                    which endpoints to include or exclude.
                     <br />
                     <br />
                     See the
@@ -140,14 +140,22 @@
                       try {
                         include_upload_btn.disabled = true;
                         include_upload_btn.value = "Uploading…";
+
+                        const include = new FormData();
+                        include.append("file", include_file);
+
                         const { stdout, stderr } = await fetch(
-                          "http://localhost/upload/include/null",
-                          { method: "POST", body: include_file }
-                        ).then((response) => {
-                          console.log("request successful");
-                          include_upload_btn.value = "Upload";
-                          include_upload_btn.disabled = false;
-                        });
+                          "http://localhost/file_upload/include/null",
+                          {
+                            method: "POST",
+                            headers: {
+                              Accept: "application/json",
+                            },
+                            body: include,
+                          }
+                        );
+                        include_upload_btn.value = "Upload";
+                        include_upload_btn.disabled = false;
                       } catch (err) {
                         console.log(
                           "ERROR: Something went wrong while pinging server"
@@ -158,22 +166,19 @@
                       }
                     }
 
-                    include_upload_btn.addEventListener(
-                      "click",
-                      async function () {
-                        include_upload =
-                          document.getElementById("include_upload").value;
-                        if (include_upload == "") {
-                          // if nothing is uploaded
-                          console.log("ERROR: No include file was uploaded.");
-                        } else {
-                          // if a file is uploaded
-                          include_file =
-                            document.getElementById("include_upload").files[0];
-                          return IncludeUpload(include_file);
-                        }
+                    include_upload_btn.addEventListener("click", function () {
+                      include_upload =
+                        document.getElementById("include_upload").value;
+                      if (include_upload == "") {
+                        // if nothing is uploaded
+                        console.log("ERROR: No include file was uploaded.");
+                      } else {
+                        // if a file is uploaded
+                        include_file =
+                          document.getElementById("include_upload").files[0];
+                        IncludeUpload(include_file);
                       }
-                    );
+                    });
                   </script>
                 </div>
               </div>
