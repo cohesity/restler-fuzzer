@@ -1,6 +1,3 @@
-# Copyright 2021 Cohesity Inc.
-# Author: Anvesh Myla, Ivan Mudarth
-# This script is used to remove endpoints not specified in an json file from an API spec yaml.
 import argparse
 import yaml
 import yamlordereddictloader
@@ -35,11 +32,6 @@ def dump_yaml(yaml_object, output_yaml):
         raise Exception("Error in writing the processed yaml"
               " to output file: %s" % e)
 def split_spec(args):
-    '''
-    removes api's not specified in endpoints.json
-    :param args:
-    :return:
-    '''
     try:
         yaml_object = load_yaml(args.input_yaml)
         yaml_object['host'] = int(args.vip)

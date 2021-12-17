@@ -174,9 +174,19 @@
                     try {
                       next_step_btn.disabled = true;
                       next_step_btn.value = "Sending…";
+
+                      const spec = new FormData();
+                      spec.append("file", api_spec);
+
                       const { stdout, stderr } = await fetch(
-                        "http://localhost/upload/helios/" + ip_upload,
-                        { method: "POST", body: api_spec }
+                        "http://localhost/file_upload/helios/" + ip_upload,
+                        {
+                          method: "POST",
+                          headers: {
+                            Accept: "application/json",
+                          },
+                          body: spec,
+                        }
                       );
                       document.location.href = "./configure.html";
                     } catch (err) {
