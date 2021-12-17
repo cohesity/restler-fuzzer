@@ -192,13 +192,14 @@
                   <div>
                     <p id="runsum_p">
                       <script>
-                        fetch("http://localhost/file/Test-ResponseBuckets/runSummary.json")
+                        fetch(
+                          "http://localhost/file/Test-ResponseBuckets/runSummary.json"
+                        )
                           .then((response) => response.text())
                           .then((textString) => {
                             if (textString != "") {
-                              document.getElementById(
-                                "runsum_p"
-                              ).innerText = textString;
+                              document.getElementById("runsum_p").innerText =
+                                textString;
                             } else {
                               throw new Error();
                             }
@@ -237,7 +238,7 @@
                 </div>
               </div>
             </div>
-            <div class="card mb-4">
+            <!-- <div class="card mb-4">
               <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 <b>Coverage Logs</b>
@@ -245,7 +246,7 @@
               <div class="card-body">
                                 <table id="datatablesSimple"></table>
                             </div>
-              <!-- <div class="card-body card-height">
+              <div class="card-body card-height">
                 <div class="col center">
                   <image
                     src="../assets/img/process_error.png"
@@ -255,9 +256,9 @@
                   </image>
                   <p>The Test Process has not been executed.</p>
                 </div> -->
-                <!-- <p><iframe src="data/fuzz_process.txt" width=100% height=200 frameborder=0 ></iframe></p>  -->
+            <!-- <p><iframe src="data/fuzz_process.txt" width=100% height=200 frameborder=0 ></iframe></p> 
               </div>
-            </div>
+            </div> -->
           </div>
         </main>
       </div>
