@@ -1,6 +1,5 @@
 Starting task FuzzLean...
 Using python: 'python3' (Python 3.9.7)
-Request coverage (successful / total): 0 / 6
-No bugs were found.
+Testing summary was not found.
 Task FuzzLean succeeded.
 Collecting logs...

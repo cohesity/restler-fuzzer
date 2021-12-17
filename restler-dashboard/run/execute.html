@@ -291,14 +291,16 @@
                       value="Run Processes"
                     />
                     <script>
-                      all_btn.addEventListener("click", async function (e) {
+                      all_btn.addEventListener("click", function (e) {
                         try {
                           all_btn.disabled = true;
                           all_btn.value = "Running...";
-                          const { stdout, stderr } = await fetch(
+                          const { stdout, stderr } = fetch(
                             "http://localhost/run/all",
                             { method: "POST" }
-                          ).then((res) => res.json());
+                          ).then((res) => {
+                            // document.location.href = "../view/dashboard.html";
+                          });
                           document.location.href = "../view/dashboard.html";
                         } catch (err) {
                           console.log(

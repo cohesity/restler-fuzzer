@@ -1,6 +1,6 @@
 Starting task Test...
 Using python: 'python3' (Python 3.9.7)
-Request coverage (successful / total): 0 / 6
+Request coverage (successful / total): 1 / 3
 No bugs were found.
 Task Test succeeded.
 Collecting logs...

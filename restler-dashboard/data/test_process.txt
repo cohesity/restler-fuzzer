@@ -1,4 +1,6 @@
 Starting task Test...
 Using python: 'python3' (Python 3.9.7)
-
-ERROR: Restler engine failed. See logs in E:\restler-fuzzer-testing\Server\restler-fuzzer\results\Test directory for more information.
+Request coverage (successful / total): 1 / 3
+No bugs were found.
+Task Test succeeded.
+Collecting logs...

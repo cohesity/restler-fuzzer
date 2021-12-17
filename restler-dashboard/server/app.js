@@ -1,4 +1,4 @@
-const { exec } = require("child_process");
+const { exec, execSync } = require("child_process");
 var express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -20,54 +20,91 @@ TODO:
   - return not found error otherwise
 */
 
+// Avoid long repetitive command
+function run_execSync(cmd) {
+  execSync(cmd, (err, stdout, stderr) => {
+    if (err) {
+      console.log(stderr);
+    }
+  });
+}
+
 app.post("/run/:process", runProcess);
 
 function runProcess(req, res) {
   var process = req.params["process"];
   var cmd = "";
   var output_dir = "";
-  if (process == "compile") {
-    cmd =
-      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll compile --api_spec uploads/spec.json > process_data/compile_process.txt";
-    output_dir = "Compile";
-  } else if (process == "test") {
-    cmd =
-      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll test --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings Compile/engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720 > process_data/test_process.txt";
-    output_dir = "Test";
-  } else if (process == "fuzzlean") {
-    cmd =
-      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz-lean --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings Compile/engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720 > process_data/fuzzlean_process.txt";
-    output_dir = "FuzzLean";
-  } else if (process == "fuzz") {
-    cmd =
-      "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings Compile/engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/auth.py' --token_refresh_interval 720 > process_data/fuzz_process.txt";
-    output_dir = "Fuzz";
-  }
-  var time = new Date()
-    .toLocaleString()
-    .replace(/ /g, "_")
-    .replace(/\//g, "-")
-    .replace(",", "");
-  if (fs.existsSync(output_dir)) {
-    console.log(
-      "mv " + output_dir + " 'history/" + output_dir + "-" + time + "'"
-    );
-    exec(
-      "mv " + output_dir + " 'history/" + output_dir + "-" + time + "'",
-      (err, stdout, stderr) => {
-        console.log(err);
+  var compile_cmd =
+    "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll compile --api_spec uploads/a.json > process_data/compile_process.txt";
+  var test_cmd =
+    "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll test --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/restler-dashboard/server/scripts/auth.py' --token_refresh_interval 720 > process_data/test_process.txt";
+  var fuzzlean_cmd =
+    "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz-lean --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/restler-dashboard/server/scripts/auth.py' --token_refresh_interval 720 > process_data/fuzzlean_process.txt";
+  var fuzz_cmd =
+    "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz --grammar_file Compile/grammar.py --dictionary_file Compile/dict.json --settings engine_settings.json --token_refresh_command 'python3 ~/restler-fuzzer/restler-dashboard/server/scripts/auth.py' --token_refresh_interval 720 > process_data/fuzz_process.txt";
+  if (process == "all") {
+    var cmds = [compile_cmd, test_cmd, fuzzlean_cmd, fuzz_cmd];
+    var output_dirs = ["Compile", "Test", "Fuzzlean", "Fuzz"];
+    for (let i = 0; i < 4; i++) {
+      cmd = cmds[i];
+      output_dir = output_dirs[i];
+      // console.log(cmd);
+      var time = new Date()
+        .toLocaleString()
+        .replace(/ /g, "_")
+        .replace(/\//g, "-")
+        .replace(",", "");
+      if (fs.existsSync(output_dir)) {
+        console.log(
+          "mv " + output_dir + " 'history/" + output_dir + "-" + time + "'"
+        );
+        run_execSync(
+          "mv " + output_dir + " 'history/" + output_dir + "-" + time + "'"
+        );
       }
-    );
-  }
-  time = time.replace(/ /g, "_").replace("/", "-");
-  exec(cmd, (err, stdout, stderr) => {
-    res.json({
-      // respond to client if the command was done
-      stdout: "Process executed.",
-      stderr: "" + stderr,
+      time = time.replace(/ /g, "_").replace("/", "-");
+      // var stderr = "";
+      run_execSync(cmd);
+    }
+    res.end();
+  } else {
+    if (process == "compile") {
+      cmd = compile_cmd;
+      output_dir = "Compile";
+    } else if (process == "test") {
+      cmd = test_cmd;
+      output_dir = "Test";
+    } else if (process == "fuzzlean") {
+      cmd = fuzzlean_cmd;
+      output_dir = "FuzzLean";
+    } else if (process == "fuzz") {
+      cmd = fuzz_cmd;
+      output_dir = "Fuzz";
+    }
+    var time = new Date()
+      .toLocaleString()
+      .replace(/ /g, "_")
+      .replace(/\//g, "-")
+      .replace(",", "");
+    if (fs.existsSync(output_dir)) {
+      console.log(
+        "mv " + output_dir + " 'history/" + output_dir + "-" + time + "'"
+      );
+      run_execSync(
+        "mv " + output_dir + " 'history/" + output_dir + "-" + time + "'"
+      );
+    }
+    time = time.replace(/ /g, "_").replace("/", "-");
+    execSync(cmd, (err, stdout, stderr) => {
+      res.json({
+        // respond to client if the command was done
+        stdout: "Process executed.",
+        stderr: "" + stderr,
+      });
+      console.log(stdout);
     });
-    console.log(stdout);
-  });
+  }
 }
 
 app.use("/file/:dir/:filename", getFile);
@@ -92,34 +129,30 @@ function getFile(req, res) {
 app.post("/upload/:type/:argument", uploadFile);
 
 function onpremUpload(vip, res) {
-  // remove coh.yaml if it exists
-  // add an onprem.yaml to uploads/
-  // replace host with the vip
-  // change the name to coh.yaml
-  // convert coh_api.yaml to json
-  var old_filename = "./uploads/coh_api.yaml";
+  // remove coh_api.yaml if it exists
   var onprem_filename = "./scripts/coh_api.yaml";
-  exec("cp " + onprem_filename + " ./uploads", (err, stdout, stderr) => {
-    console.log(stderr);
-  });
-  exec(
+  var new_filename = "./uploads/coh_api.yaml";
+  if (fs.existsSync(new_filename)) {
+    run_execSync("rm " + new_filename);
+  }
+  // add new coh_api.yaml to uploads/
+  run_execSync("cp " + onprem_filename + " ./uploads");
+  // replace host with the vip
+  run_execSync(
     "python3 scripts/host.py " +
       onprem_filename +
       " " +
-      old_filename +
+      new_filename +
       " " +
-      vip,
-    (err, stdout, stderr) => {
-      console.log(stderr);
-    }
+      vip
   );
-  var cmd = "yaml2json uploads/coh_api.yaml uploads/coh_api.json";
-  exec(cmd, (err, stdout, stderr) => {
-    res.json({
-      // respond to client if the command was done
-      stdout: "Process executed.",
-      stderr: "" + stderr,
-    });
+  // convert coh_api.yaml to json
+  var cmd = "yaml2json " + new_filename + " uploads/coh_api.json";
+  run_execSync(cmd);
+  res.json({
+    // respond to client if the command was done
+    stdout: "OnPrem upload executed",
+    stderr: "OnPrem upload failed",
   });
 }
 
@@ -133,16 +166,17 @@ function includeUpload(json_obj, res) {
     if (err) return next(err);
   });
   console.log("new include.json written");
-  exec(
-    "python3 scripts/split.py uploads/coh_api.yaml uploads/coh_api_s.yaml",
-    (err, stdout, stderr) => {
-      res.json({
-        // respond to client if the command was done
-        stdout: "Process executed.",
-        stderr: "" + stderr,
-      });
-    }
+  run_execSync(
+    "python3 scripts/split.py uploads/coh_api.yaml uploads/coh_api.yaml"
   );
+  var cmd = "yaml2json uploads/coh_api.yaml uploads/coh_api.json";
+  execSync(cmd, (err, stdout, stderr) => {
+    res.json({
+      // respond to client if the command was done
+      stdout: "Process executed.",
+      stderr: "" + stderr,
+    });
+  });
   console.log("coh yaml split");
   return;
 }
@@ -167,7 +201,7 @@ function uploadFile(req, res) {
   //   // respond to client if the command was done
   //   stdout: "Request complete.",
   // });
-  console.log("Received a " + type + " upload with type " + argument);
+  console.log("Received a(n) " + type + " upload with type " + argument);
 }
 
 app.get("/download/:privateKey", downloadSpec); // DEFUNCT
@@ -200,7 +234,7 @@ function convertSpec(req, res) {
   var options = {
     root: path.join(__dirname, "/uploads"),
   };
-  exec(cmd, (err, stdout, stderr) => {
+  execSync(cmd, (err, stdout, stderr) => {
     res.sendFile("coh_api_convert.json", options, function (err) {
       if (err) {
         console.log(err);
@@ -220,7 +254,7 @@ function splitSpec(req, res) {
   var options = {
     root: path.join(__dirname, "/uploads"),
   };
-  exec(cmd, (err, stdout, stderr) => {
+  execSync(cmd, (err, stdout, stderr) => {
     res.sendFile("coh_api_split.yaml", options, function (err) {
       if (err) {
         console.log(err);
@@ -231,4 +265,4 @@ function splitSpec(req, res) {
   });
 }
 
-app.listen(80, () => console.log("Server started..."));
+app.listen(80, () => console.log("Server started...\n"));

@@ -1,6 +1,82 @@
-Starting task Fuzz...
-Using python: 'python3' (Python 3.9.7)
-Request coverage (successful / total): 0 / 6
-No bugs were found.
-Task Fuzz succeeded.
-Collecting logs...
+
+ERROR: The RESTler grammar file path Compile/grammar.py does not exist.
+
+Usage:
+
+  restler --version
+          [--disable_log_upload] [--logsUploadRootDirPath <log upload directory>]
+          [--python_path <full path to python executable>]
+          [ compile <compile options> |
+            test <test options> |
+            fuzz-lean <test options> |
+            fuzz <fuzz options> ]
+
+    global options:
+        --disable_log_upload
+            Disable uploading full logs to the configured log upload directory.
+        --logsUploadRootDirPath <path where to upload logs>
+            Upload full logs to this upload directory.
+        --python_path <full path to python executable>
+            Specify the full path to the python executable with which to launch the RESTler engine.
+
+    compile options:
+        <compiler config file>
+        OR
+        --api_spec <path to Swagger specification>
+            A default compiler config file will be auto-generated.
+            You must change it later to fit your needs.
+
+    test options:
+        --grammar_file <grammar file>
+        --dictionary_file <dictionary file>
+        --target_ip <ip>
+            If specified, sets the IP address to this specific value instead of using the hostname.
+        --target_port <port>
+            If specified, overrides the default port, which is 443 with SSL, 80 with no SSL.
+        --token_refresh_interval <interval with which to refresh the token>
+        --token_refresh_command <full command line to refresh token.>
+            The command line must be enclosed in double quotes. Paths must be absolute.
+        --producer_timing_delay <delay in seconds after invoking an API that creates a new resource>
+        --path_regex <path regex>
+            <path regex> is a regular expression used to filter which requests are fuzzed.
+            See Python regex for documentation: https://docs.python.org/2/howto/regex.html.
+            Example: (\w*)/virtualNetworks/(\w*)
+        --no_ssl
+            When connecting to the service, do not use SSL.  The default is to connect with SSL.
+        --host <Host string>
+            If specified, this string will set or override the Host in each request.
+            Example: management.web.com
+        --settings <engine settings file>
+        --enable_checkers <list of checkers>
+        --disable_checkers <list of checkers>
+            <list of checkers> - A comma-separated list of checker names without spaces.
+            enable_checkers overrides the default list of checkers,
+            while disable_checkers removes checkers from the default list of checkers.
+            The default list of checkers in fuzz-lean and fuzz mode is
+            all the checkers below except namespacerule.
+            Supported checkers: leakagerule, resourcehierarchy, useafterfree,
+                                namespacerule, invaliddynamicobject, payloadbody,
+                                examples.
+
+        --no_results_analyzer
+            If specified, do not run results analyzer on the network logs.
+            Results analyzer may be run separately.
+
+        --test_all_combinations
+            Only valid in 'test' mode.
+            If specified, test all parameter combinations (instead of up to just one
+            valid rendering) in 'test' mode.
+
+    fuzz-lean options:
+        <The same options as 'test'>
+            This task runs test mode with a subset of checkers, which performs some limited fuzzing.
+
+    fuzz options:
+        <The same options as 'test'>
+        --time_budget <maximum duration in hours>
+        --search_strategy [bfs-fast(default),bfs,bfs-cheap,random-walk]
+
+    replay options:
+        <Required options from 'test' mode as above:
+            --token_refresh_cmd. >
+        --replay_log <path to the RESTler bug bucket repro file>. 

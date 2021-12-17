@@ -98,60 +98,11 @@
             <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item active">Dashboard</li>
             </ol>
-            <div class="card mb-4">
-              <div class="card-body">
-                Click <a href="../config.html">here</a> to configure RESTler
-                settings required for a run. Click
-                <a href="../tools.html">here</a> to use tools to help start a
-                RESTler run.
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-body"><b>Last RESTler Run: </b>10:42 AM</div>
-                </div>
-              </div>
-              <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-body">
-                    <b>API Spec Used: </b>swagger.json
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="row">
               <div class="col-xl-6">
                 <div class="card bg-success mb-4">
                   <div class="card-header process_heading">
                     <b>Compile Process</b>
-                    <button
-                      type="button"
-                      id="compile_button"
-                      class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
-                    <script>
-                      compile_button.addEventListener(
-                        "click",
-                        async function (e) {
-                          try {
-                            const { stdout, stderr } = await fetch(
-                              "http://localhost/run/compile",
-                              { method: "POST" }
-                            ).then((res) => res.json());
-                            console.log(stdout, stderr);
-                            window.location.reload();
-                          } catch (err) {
-                            console.error(
-                              "error occured while pinging server",
-                              err
-                            );
-                          }
-                        }
-                      );
-                    </script>
                   </div>
                   <div id="compile_success" class="card-body">
                     <p id="compile_process">
@@ -170,17 +121,17 @@
                             // There was an error
                             console.warn("Something went wrong.", err);
                           });
-                        var node1 = document.createElement("DIV");
-                        node1.className = "card-body";
-                        var node2 = document.createElement("P");
-                        // var node2text = document.createTextNode("Success");
-                        node2.id = "nodee";
-                        // node2.appendChild(node2text);
-                        // node1.appendChild(node2);
-                        document
-                          .getElementById("compile_success")
-                          .appendChild(node2);
-                        document.getElementById("nodee").innerText = "Success";
+                        // var node1 = document.createElement("DIV");
+                        // node1.className = "card-body";
+                        // var node2 = document.createElement("P");
+                        // // var node2text = document.createTextNode("Success");
+                        // node2.id = "nodee";
+                        // // node2.appendChild(node2text);
+                        // // node1.appendChild(node2);
+                        // document
+                        //   .getElementById("compile_success")
+                        //   .appendChild(node2);
+                        // document.getElementById("nodee").innerText = "Success";
                       </script>
                     </p>
                   </div>
@@ -202,41 +153,27 @@
                 </div>
               </div>
               <div class="col-xl-6">
-                <div class="card bg-danger mb-4">
+                <div class="card bg-success mb-4">
                   <div class="card-header process_heading">
                     <b>Test Process</b>
-                    <button
-                      type="button"
-                      id="test_button"
-                      class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
-                    <script>
-                      test_button.addEventListener("click", async function (e) {
-                        try {
-                          const { stdout, stderr } = await fetch(
-                            "http://localhost/run/test",
-                            { method: "POST" }
-                          ).then((res) => res.json());
-                          console.log(stdout, stderr);
-                        } catch (err) {
-                          console.error(
-                            "error occured while pinging server",
-                            err
-                          );
-                        }
-                      });
-                    </script>
                   </div>
                   <div class="card-body">
-                    <p>
-                      <iframe
-                        src="../data/test_process.txt"
-                        width="100%"
-                        height="120"
-                        frameborder="0"
-                      ></iframe>
+                    <p id="test_process">
+                      <script>
+                        fetch(
+                          "http://localhost/file/process_data/test_process.txt"
+                        )
+                          .then((response) => response.text())
+                          .then((textString) => {
+                            console.log(textString);
+                            document.getElementById("test_process").innerText =
+                              textString;
+                          })
+                          .catch(function (err) {
+                            // There was an error
+                            console.warn("Something went wrong.", err);
+                          });
+                      </script>
                     </p>
                   </div>
                   <div
@@ -262,41 +199,25 @@
                 <div class="card bg-success mb-4">
                   <div class="card-header process_heading">
                     <b>Fuzz-lean Process</b>
-                    <button
-                      type="button"
-                      id="fuzzlean_button"
-                      class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
-                    <script>
-                      fuzzlean_button.addEventListener(
-                        "click",
-                        async function (e) {
-                          try {
-                            const { stdout, stderr } = await fetch(
-                              "http://localhost/run/fuzzlean",
-                              { method: "POST" }
-                            ).then((res) => res.json());
-                            console.log(stdout, stderr);
-                          } catch (err) {
-                            console.error(
-                              "error occured while pinging server",
-                              err
-                            );
-                          }
-                        }
-                      );
-                    </script>
                   </div>
                   <div class="card-body">
-                    <p>
-                      <iframe
-                        src="../data/fuzzlean_process.txt"
-                        width="100%"
-                        height="200"
-                        frameborder="0"
-                      ></iframe>
+                    <p id="fuzzlean_process">
+                      <script>
+                        fetch(
+                          "http://localhost/file/process_data/fuzzlean_process.txt"
+                        )
+                          .then((response) => response.text())
+                          .then((textString) => {
+                            console.log(textString);
+                            document.getElementById(
+                              "fuzzlean_process"
+                            ).innerText = textString;
+                          })
+                          .catch(function (err) {
+                            // There was an error
+                            console.warn("Something went wrong.", err);
+                          });
+                      </script>
                     </p>
                   </div>
                   <div
