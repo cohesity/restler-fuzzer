@@ -12,6 +12,11 @@ var app = express();
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
+var settings = {
+  dictPath: "default",
+  timeLimit: 1,
+};
+
 // Avoid long repetitive command
 function run_execSync(cmd) {
   execSync(cmd, (err, stdout, stderr) => {
@@ -65,10 +70,21 @@ function uploadRequest(req, res) {
     onPremUpload(argument, res);
   } else if (type == "limit") {
     // TODO:
+    var time = 1;
+    try {
+      var time = parseInt(argument);
+      if (time > 0 && time < 48) {
+        settings["timeLimit"] = time;
+      } else {
+        // TODO: throw error, must be a valid time
+      }
+    } catch (error) {
+      // TODO: throw error, must be an int
+    }
   } else {
     console.log("ERROR: Invalid upload type\n");
   }
-  console.log("Received a(n) " + type + " upload with type " + argument + "\n");
+  console.log("Received a(n) " + type + " upload with arg " + argument + "\n");
   // Respond to client
   res.json({
     stdout: type + " upload successful",
@@ -147,6 +163,21 @@ function includeUpload(file) {
   }
 }
 
+// Uploads a dictionary and tells RESTler a custom dictionary is being used
+function dictUpload(file) {
+  var upload_filename = file.path;
+  var dict_filename = "uploads/dictionary.json";
+
+  // remove dictionary file if it exists
+  if (fs.existsSync(dict_filename)) {
+    run_execSync("rm " + dict_filename);
+  }
+  // rename uploaded file's default name to dictionary.json
+  run_execSync("mv " + upload_filename + " " + dict_filename);
+  // update RESTler settings
+  settings["dictPath"] = dict_filename;
+}
+
 // Handle requests from file upload endpoint
 function fileRequest(req, res) {
   var type = req.params["type"];
@@ -162,12 +193,15 @@ function fileRequest(req, res) {
     }
     includeUpload(req.file);
   } else if (type == "dict") {
-    // TODO:
+    if (req.file.mimetype != "application/x-json") {
+      // TODO: throw error
+    }
+    dictUpload(req.file);
   } else {
     // TODO: throw error
     console.log("ERROR: Invalid upload type\n");
   }
-  console.log("Received a(n) " + type + " file with type " + argument + "\n");
+  console.log("Received a(n) " + type + " file with arg " + argument + "\n");
   // Respond to client
   res.json({
     stdout: type + " file upload successful",

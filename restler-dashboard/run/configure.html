@@ -216,9 +216,19 @@
                       try {
                         dict_upload_btn.disabled = true;
                         dict_upload_btn.value = "Uploading…";
+
+                        const dict = new FormData();
+                        dict.append("file", dict_file);
+
                         const { stdout, stderr } = await fetch(
-                          "http://localhost/upload/dict/null",
-                          { method: "POST", body: dict_file }
+                          "http://localhost/file_upload/dict/null",
+                          {
+                            method: "POST",
+                            headers: {
+                              Accept: "application/json",
+                            },
+                            body: dict,
+                          }
                         );
                         dict_upload_btn.value = "Upload";
                         dict_upload_btn.disabled = false;
@@ -300,8 +310,8 @@
 
                       limit_upload_btn.addEventListener("click", function () {
                         limit_upload =
-                          document.getElementById("dict_upload").value;
-                        if (dict_upload == "") {
+                          document.getElementById("limit_upload").value;
+                        if (limit_upload == "") {
                           // if nothing is uploaded
                           console.log("ERROR: No time limit was uploaded.");
                         } else {
