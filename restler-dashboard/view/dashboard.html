@@ -100,11 +100,12 @@
             </ol>
             <div class="row">
               <div class="col-xl-6">
-                <div class="card bg-success mb-4">
+                <div id="compile_colour" class="card bg-warning mb-4">
                   <div class="card-header process_heading">
                     <b>Compile Process</b>
                   </div>
-                  <div id="compile_success" class="card-body">
+                  <div id="compile_tab" class="card-body" style="height: 220px">
+                    <div id="compile_img"></div>
                     <p id="compile_process">
                       <script>
                         fetch(
@@ -112,26 +113,43 @@
                         )
                           .then((response) => response.text())
                           .then((textString) => {
-                            console.log(textString);
-                            document.getElementById(
-                              "compile_process"
-                            ).innerText = textString;
+                            if (textString != "") {
+                              // change colour to green if successful, red otherwise
+                              if (textString.includes("succeeded")) {
+                                document.getElementById(
+                                  "compile_colour"
+                                ).className = "card bg-success mb-4";
+                              } else {
+                                document.getElementById(
+                                  "compile_colour"
+                                ).className = "card bg-danger mb-4";
+                              }
+
+                              document.getElementById(
+                                "compile_process"
+                              ).innerText = textString;
+                            } else {
+                              throw new Error();
+                            }
                           })
                           .catch(function (err) {
+                            // Add error image
+                            var img = document.createElement("IMG");
+                            img.src = "../assets/img/process_error.png";
+                            img.width = "110";
+                            img.height = "100";
+                            document
+                              .getElementById("compile_img")
+                              .appendChild(img);
+
+                            // Add error text
+                            document.getElementById(
+                              "compile_process"
+                            ).innerText =
+                              "The Compile Process has not been executed recently.";
                             // There was an error
                             console.warn("Something went wrong.", err);
                           });
-                        // var node1 = document.createElement("DIV");
-                        // node1.className = "card-body";
-                        // var node2 = document.createElement("P");
-                        // // var node2text = document.createTextNode("Success");
-                        // node2.id = "nodee";
-                        // // node2.appendChild(node2text);
-                        // // node1.appendChild(node2);
-                        // document
-                        //   .getElementById("compile_success")
-                        //   .appendChild(node2);
-                        // document.getElementById("nodee").innerText = "Success";
                       </script>
                     </p>
                   </div>
@@ -153,11 +171,12 @@
                 </div>
               </div>
               <div class="col-xl-6">
-                <div class="card bg-success mb-4">
+                <div id="test_colour" class="card bg-warning mb-4">
                   <div class="card-header process_heading">
                     <b>Test Process</b>
                   </div>
-                  <div class="card-body">
+                  <div id="test_tab" class="card-body" style="height: 220px">
+                    <div id="test_img"></div>
                     <p id="test_process">
                       <script>
                         fetch(
@@ -165,11 +184,38 @@
                         )
                           .then((response) => response.text())
                           .then((textString) => {
-                            console.log(textString);
-                            document.getElementById("test_process").innerText =
-                              textString;
+                            if (textString != "") {
+                              // change colour to green if successful, red otherwise
+                              if (textString.includes("succeeded")) {
+                                document.getElementById(
+                                  "test_colour"
+                                ).className = "card bg-success mb-4";
+                              } else {
+                                document.getElementById(
+                                  "test_colour"
+                                ).className = "card bg-danger mb-4";
+                              }
+
+                              document.getElementById(
+                                "test_process"
+                              ).innerText = textString;
+                            } else {
+                              throw new Error();
+                            }
                           })
                           .catch(function (err) {
+                            // Add error image
+                            var img = document.createElement("IMG");
+                            img.src = "../assets/img/process_error.png";
+                            img.width = "110";
+                            img.height = "100";
+                            document
+                              .getElementById("test_img")
+                              .appendChild(img);
+
+                            // Add error text
+                            document.getElementById("test_process").innerText =
+                              "The Test Process has not been executed recently.";
                             // There was an error
                             console.warn("Something went wrong.", err);
                           });
@@ -196,11 +242,16 @@
             </div>
             <div class="row">
               <div class="col-xl-6">
-                <div class="card bg-success mb-4">
+                <div id="fuzzlean" class="card bg-warning mb-4">
                   <div class="card-header process_heading">
                     <b>Fuzz-lean Process</b>
                   </div>
-                  <div class="card-body">
+                  <div
+                    id="fuzzlean_tab"
+                    class="card-body"
+                    style="height: 220px"
+                  >
+                    <div id="fuzzlean_img"></div>
                     <p id="fuzzlean_process">
                       <script>
                         fetch(
@@ -208,12 +259,40 @@
                         )
                           .then((response) => response.text())
                           .then((textString) => {
-                            console.log(textString);
-                            document.getElementById(
-                              "fuzzlean_process"
-                            ).innerText = textString;
+                            if (textString != "") {
+                              // change colour to green if successful, red otherwise
+                              if (textString.includes("succeeded")) {
+                                document.getElementById(
+                                  "fuzzlean_colour"
+                                ).className = "card bg-success mb-4";
+                              } else {
+                                document.getElementById(
+                                  "fuzzlean_colour"
+                                ).className = "card bg-danger mb-4";
+                              }
+
+                              document.getElementById(
+                                "fuzzlean_process"
+                              ).innerText = textString;
+                            } else {
+                              throw new Error();
+                            }
                           })
                           .catch(function (err) {
+                            // Add error image
+                            var img = document.createElement("IMG");
+                            img.src = "../assets/img/process_error.png";
+                            img.width = "110";
+                            img.height = "100";
+                            document
+                              .getElementById("fuzzlean_img")
+                              .appendChild(img);
+
+                            // Add error text
+                            document.getElementById(
+                              "fuzzlean_process"
+                            ).innerText =
+                              "The Fuzz-lean Process has not been executed recently.";
                             // There was an error
                             console.warn("Something went wrong.", err);
                           });
@@ -238,44 +317,56 @@
                 </div>
               </div>
               <div class="col-xl-6">
-                <div class="card bg-warning mb-4">
+                <div id="fuzz" class="card bg-warning mb-4">
                   <div class="card-header process_heading">
                     <b>Fuzz Process</b>
-                    <button
-                      type="button"
-                      id="fuzz_button"
-                      class="btn btn-outline-dark button_example"
-                    >
-                      Run Process
-                    </button>
-                    <script>
-                      fuzz_button.addEventListener("click", async function (e) {
-                        try {
-                          const { stdout, stderr } = await fetch(
-                            "http://localhost/run/fuzz",
-                            { method: "POST" }
-                          ).then((res) => res.json());
-                          console.log(stdout, stderr);
-                        } catch (err) {
-                          console.error(
-                            "error occured while pinging server",
-                            err
-                          );
-                        }
-                      });
-                    </script>
                   </div>
-                  <div class="card-body card-height">
-                    <div class="col center">
-                      <image
-                        src="../assets/img/process_error.png"
-                        width="110"
-                        height="100"
-                      >
-                      </image>
-                      <p>The Fuzz Process has not been executed.</p>
-                    </div>
-                    <!-- <p><iframe src="data/fuzz_process.txt" width=100% height=200 frameborder=0 ></iframe></p>  -->
+                  <div id="fuzz_tab" class="card-body" style="height: 220px">
+                    <div id="fuzz_img"></div>
+                    <p id="fuzz_process">
+                      <script>
+                        fetch(
+                          "http://localhost/file/process_data/fuzz_process.txt"
+                        )
+                          .then((response) => response.text())
+                          .then((textString) => {
+                            if (textString != "") {
+                              // change colour to green if successful, red otherwise
+                              if (textString.includes("succeeded")) {
+                                document.getElementById(
+                                  "fuzz_colour"
+                                ).className = "card bg-success mb-4";
+                              } else {
+                                document.getElementById(
+                                  "fuzz_colour"
+                                ).className = "card bg-danger mb-4";
+                              }
+
+                              document.getElementById(
+                                "fuzz_process"
+                              ).innerText = textString;
+                            } else {
+                              throw new Error();
+                            }
+                          })
+                          .catch(function (err) {
+                            // Add error image
+                            var img = document.createElement("IMG");
+                            img.src = "../assets/img/process_error.png";
+                            img.width = "110";
+                            img.height = "100";
+                            document
+                              .getElementById("fuzz_img")
+                              .appendChild(img);
+
+                            // Add error text
+                            document.getElementById("fuzz_process").innerText =
+                              "The Fuzz Process has not been executed recently.";
+                            // There was an error
+                            console.warn("Something went wrong.", err);
+                          });
+                      </script>
+                    </p>
                   </div>
                   <div
                     class="

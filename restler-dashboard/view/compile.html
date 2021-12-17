@@ -109,16 +109,57 @@
             </div>
             <div class="row">
               <div class="col-xl-6">
-                <div class="card bg-success mb-4">
-                  <div class="card-header"><b>Compile Process</b></div>
-                  <div class="card-body">
-                    <p>
-                      <iframe
-                        src="../data/compile_process.txt"
-                        width="100%"
-                        height="80"
-                        frameborder="0"
-                      ></iframe>
+                <div id="compile_colour" class="card bg-warning mb-4">
+                  <div class="card-header process_heading">
+                    <b>Compile Process</b>
+                  </div>
+                  <div id="compile_tab" class="card-body" style="height: 220px">
+                    <div id="compile_img"></div>
+                    <p id="compile_process">
+                      <script>
+                        fetch(
+                          "http://localhost/file/process_data/compile_process.txt"
+                        )
+                          .then((response) => response.text())
+                          .then((textString) => {
+                            if (textString != "") {
+                              // change colour to green if successful, red otherwise
+                              if (textString.includes("succeeded")) {
+                                document.getElementById(
+                                  "compile_colour"
+                                ).className = "card bg-success mb-4";
+                              } else {
+                                document.getElementById(
+                                  "compile_colour"
+                                ).className = "card bg-danger mb-4";
+                              }
+
+                              document.getElementById(
+                                "compile_process"
+                              ).innerText = textString;
+                            } else {
+                              throw new Error();
+                            }
+                          })
+                          .catch(function (err) {
+                            // Add error image
+                            var img = document.createElement("IMG");
+                            img.src = "../assets/img/process_error.png";
+                            img.width = "110";
+                            img.height = "100";
+                            document
+                              .getElementById("compile_img")
+                              .appendChild(img);
+
+                            // Add error text
+                            document.getElementById(
+                              "compile_process"
+                            ).innerText =
+                              "The Compile Process has not been executed.";
+                            // There was an error
+                            console.warn("Something went wrong.", err);
+                          });
+                      </script>
                     </p>
                   </div>
                   <div
@@ -129,7 +170,9 @@
                       justify-content-between
                     "
                   >
-                    <a class="small text-black" href="#">View Details</a>
+                    <a class="small text-black" href="./compile.html"
+                      >View Details</a
+                    >
                     <div class="small text-black">
                       <i class="fas fa-angle-right"></i>
                     </div>
@@ -137,110 +180,169 @@
                 </div>
               </div>
               <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-header"><b>Compile Engine Settings</b></div>
-                  <div class="card-body">
-                    <p>
-                      <iframe
-                        src="../data/compile_settings.txt"
-                        width="100%"
-                        height="80"
-                        frameborder="0"
-                      ></iframe>
-                    </p>
-
+                <div class="card-header process_heading">
+                  <b>Compile Engine Settings</b>
+                </div>
+                <div
+                  id="compeng_tab"
+                  class="card-body"
+                  style="height: 220px; overflow: scroll"
+                >
+                  <div id="compeng_img"></div>
+                  <p id="compeng_p">
                     <script>
-                      fetch("http://localhost/get_file")
+                      fetch("http://localhost/file/null/engine_settings.json")
                         .then((response) => response.text())
                         .then((textString) => {
-                          console.log(textString);
+                          if (textString != "") {
+                            document.getElementById("compeng_p").innerText =
+                              textString;
+                          } else {
+                            throw new Error();
+                          }
                         })
-                        // .then(function (response) {
-                        //   // The API call was successful!
-                        //   console.log(response.body);
-                        //   return response.body;
-                        // })
-                        // .then(function (html) {
-                        //   // Convert the HTML string into a document object
-                        //   var parser = new DOMParser();
-                        //   var doc = parser.parseFromString(html, "text/html");
-                        // })
                         .catch(function (err) {
+                          // Add error image
+                          var img = document.createElement("IMG");
+                          img.src = "../assets/img/process_error.png";
+                          img.width = "110";
+                          img.height = "100";
+                          document
+                            .getElementById("compeng_img")
+                            .appendChild(img);
+
+                          // Add error text
+                          document.getElementById("compeng_p").innerText =
+                            "The Fuzz-lean Process has not been executed recently.";
                           // There was an error
                           console.warn("Something went wrong.", err);
                         });
                     </script>
-                  </div>
-                  <div
-                    class="
-                      card-footer
-                      d-flex
-                      align-items-center
-                      justify-content-between
-                    "
-                  >
-                    <a class="small text-black" href="#">View Details</a>
-                    <div class="small text-black">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
+                  </p>
+                </div>
+                <div
+                  class="
+                    card-footer
+                    d-flex
+                    align-items-center
+                    justify-content-between
+                  "
+                >
+                  <div class="small text-black">
+                    <i class="fas fa-angle-right"></i>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-header"><b>Compile Config</b></div>
-                  <div class="card-body">
-                    <p>
-                      <iframe
-                        src="../data/compile_config.txt"
-                        width="100%"
-                        height="200"
-                        frameborder="0"
-                      ></iframe>
+                <div class="card-header process_heading">
+                  <b>Compile Config</b>
+                </div>
+                <div
+                  id="compconfig_tab"
+                  class="card-body"
+                  style="height: 220px; overflow: scroll"
+                >
+                  <div id="compconfig_img"></div>
+                  <div>
+                    <p id="compconfig_p">
+                      <script>
+                        fetch("http://localhost/file/Compile/config.json")
+                          .then((response) => response.text())
+                          .then((textString) => {
+                            if (textString != "") {
+                              document.getElementById(
+                                "compconfig_p"
+                              ).innerText = textString;
+                            } else {
+                              throw new Error();
+                            }
+                          })
+                          .catch(function (err) {
+                            // Add error image
+                            var img = document.createElement("IMG");
+                            img.src = "../assets/img/process_error.png";
+                            img.width = "110";
+                            img.height = "100";
+                            document
+                              .getElementById("compconfig_img")
+                              .appendChild(img);
+
+                            // Add error text
+                            document.getElementById("compconfig_p").innerText =
+                              "The Fuzz-lean Process has not been executed recently.";
+                            // There was an error
+                            console.warn("Something went wrong.", err);
+                          });
+                      </script>
                     </p>
                   </div>
-                  <div
-                    class="
-                      card-footer
-                      d-flex
-                      align-items-center
-                      justify-content-between
-                    "
-                  >
-                    <a class="small text-black" href="#">View Details</a>
-                    <div class="small text-black">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
+                </div>
+                <div
+                  class="
+                    card-footer
+                    d-flex
+                    align-items-center
+                    justify-content-between
+                  "
+                >
+                  <div class="small text-black">
+                    <i class="fas fa-angle-right"></i>
                   </div>
                 </div>
               </div>
               <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-header"><b>Compile Dictionary</b></div>
-                  <div class="card-body">
-                    <p>
-                      <iframe
-                        src="../data/compile_dict.txt"
-                        width="100%"
-                        height="200"
-                        frameborder="0"
-                      ></iframe>
-                    </p>
-                  </div>
-                  <div
-                    class="
-                      card-footer
-                      d-flex
-                      align-items-center
-                      justify-content-between
-                    "
-                  >
-                    <a class="small text-black" href="#">View Details</a>
-                    <div class="small text-black">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
+                <div class="card-header process_heading">
+                  <b>Compile Dictionary</b>
+                </div>
+                <div
+                  id="compdict_tab"
+                  class="card-body"
+                  style="height: 220px; overflow: scroll"
+                >
+                  <div id="compdict_img"></div>
+                  <p id="compdict_p">
+                    <script>
+                      fetch("http://localhost/file/Compile/dict.json")
+                        .then((response) => response.text())
+                        .then((textString) => {
+                          if (textString != "") {
+                            document.getElementById("compdict_p").innerText =
+                              textString;
+                          } else {
+                            throw new Error();
+                          }
+                        })
+                        .catch(function (err) {
+                          // Add error image
+                          var img = document.createElement("IMG");
+                          img.src = "../assets/img/process_error.png";
+                          img.width = "110";
+                          img.height = "100";
+                          document
+                            .getElementById("compdict_img")
+                            .appendChild(img);
+
+                          // Add error text
+                          document.getElementById("compdict_p").innerText =
+                            "The Fuzz-lean Process has not been executed recently.";
+                          // There was an error
+                          console.warn("Something went wrong.", err);
+                        });
+                    </script>
+                  </p>
+                </div>
+                <div
+                  class="
+                    card-footer
+                    d-flex
+                    align-items-center
+                    justify-content-between
+                  "
+                >
+                  <div class="small text-black">
+                    <i class="fas fa-angle-right"></i>
                   </div>
                 </div>
               </div>

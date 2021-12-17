@@ -12,6 +12,20 @@ var app = express();
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
+// Clear the process_data/ dir when server is started
+const directory = "process_data";
+
+fs.readdir(directory, (err, files) => {
+  if (err) throw err;
+
+  for (const file of files) {
+    fs.unlink(path.join(directory, file), (err) => {
+      if (err) throw err;
+    });
+  }
+});
+
+// Dictionary representing RESTler settings
 var settings = {
   dictPath: "default",
   timeLimit: 1,
@@ -343,6 +357,32 @@ function fileRequest(req, res) {
   res.json({
     stdout: type + " file upload successful",
     stderr: type + " file upload failed",
+  });
+}
+
+app.use("/file/:dir/:filename", getFile);
+
+// Returns file given the directory and filename in the request
+function getFile(req, res) {
+  var dir = req.params["dir"];
+  var filename = req.params["filename"];
+
+  dir = dir.replace("-", "/");
+  if (dir == "null") {
+    dir = "";
+  }
+
+  var options = {
+    root: path.join(__dirname, dir),
+  };
+
+  res.sendFile(filename, options, function (err) {
+    if (err) {
+      console.log(filename + " not found.\n");
+      res.status(err.status).end();
+    } else {
+      console.log("Sent:", filename, "\n");
+    }
   });
 }
 

@@ -110,16 +110,61 @@
             </div>
             <div class="row">
               <div class="col-xl-6">
-                <div class="card bg-success mb-4">
-                  <div class="card-header"><b>Fuzz-lean Process</b></div>
-                  <div class="card-body">
-                    <p>
-                      <iframe
-                        src="../data/fuzzlean_process.txt"
-                        width="100%"
-                        height="100"
-                        frameborder="0"
-                      ></iframe>
+                <div id="fuzzlean" class="card bg-warning mb-4">
+                  <div class="card-header process_heading">
+                    <b>Fuzz-lean Process</b>
+                  </div>
+                  <div
+                    id="fuzzlean_tab"
+                    class="card-body"
+                    style="height: 220px"
+                  >
+                    <div id="fuzzlean_img"></div>
+                    <p id="fuzzlean_process">
+                      <script>
+                        fetch(
+                          "http://localhost/file/process_data/fuzzlean_process.txt"
+                        )
+                          .then((response) => response.text())
+                          .then((textString) => {
+                            if (textString != "") {
+                              // change colour to green if successful, red otherwise
+                              if (textString.includes("succeeded")) {
+                                document.getElementById(
+                                  "fuzzlean_colour"
+                                ).className = "card bg-success mb-4";
+                              } else {
+                                document.getElementById(
+                                  "fuzzlean_colour"
+                                ).className = "card bg-danger mb-4";
+                              }
+
+                              document.getElementById(
+                                "fuzzlean_process"
+                              ).innerText = textString;
+                            } else {
+                              throw new Error();
+                            }
+                          })
+                          .catch(function (err) {
+                            // Add error image
+                            var img = document.createElement("IMG");
+                            img.src = "../assets/img/process_error.png";
+                            img.width = "110";
+                            img.height = "100";
+                            document
+                              .getElementById("fuzzlean_img")
+                              .appendChild(img);
+
+                            // Add error text
+                            document.getElementById(
+                              "fuzzlean_process"
+                            ).innerText =
+                              "The Fuzz-lean Process has not been executed recently.";
+                            // There was an error
+                            console.warn("Something went wrong.", err);
+                          });
+                      </script>
                     </p>
                   </div>
                   <div
@@ -130,7 +175,9 @@
                       justify-content-between
                     "
                   >
-                    <a class="small text-black" href="#">View Details</a>
+                    <a class="small text-black" href="./fuzzlean.html"
+                      >View Details</a
+                    >
                     <div class="small text-black">
                       <i class="fas fa-angle-right"></i>
                     </div>
@@ -138,30 +185,60 @@
                 </div>
               </div>
               <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-header"><b>Fuzz-lean Summary</b></div>
-                  <div class="card-body">
-                    <p>
-                      <iframe
-                        src="../data/fuzzlean_summary.txt"
-                        width="100%"
-                        height="100"
-                        frameborder="0"
-                      ></iframe>
+                <div class="card-header process_heading">
+                  <b>Run Summary</b>
+                </div>
+                <div
+                  id="runsum_tab"
+                  class="card-body"
+                  style="height: 220px; overflow: scroll"
+                >
+                  <div id="runsum_img"></div>
+                  <div>
+                    <p id="runsum_p">
+                      <script>
+                        fetch(
+                          "http://localhost/file/Fuzzlean-ResponseBuckets/runSummary.json"
+                        )
+                          .then((response) => response.text())
+                          .then((textString) => {
+                            if (textString != "") {
+                              document.getElementById("runsum_p").innerText =
+                                textString;
+                            } else {
+                              throw new Error();
+                            }
+                          })
+                          .catch(function (err) {
+                            // Add error image
+                            var img = document.createElement("IMG");
+                            img.src = "../assets/img/process_error.png";
+                            img.width = "110";
+                            img.height = "100";
+                            document
+                              .getElementById("runsum_img")
+                              .appendChild(img);
+
+                            // Add error text
+                            document.getElementById("runsum_p").innerText =
+                              "The Fuzz-lean Process has not been executed recently.";
+                            // There was an error
+                            console.warn("Something went wrong.", err);
+                          });
+                      </script>
                     </p>
                   </div>
-                  <div
-                    class="
-                      card-footer
-                      d-flex
-                      align-items-center
-                      justify-content-between
-                    "
-                  >
-                    <a class="small text-black" href="#">View Details</a>
-                    <div class="small text-black">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
+                </div>
+                <div
+                  class="
+                    card-footer
+                    d-flex
+                    align-items-center
+                    justify-content-between
+                  "
+                >
+                  <div class="small text-black">
+                    <i class="fas fa-angle-right"></i>
                   </div>
                 </div>
               </div>
