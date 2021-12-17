@@ -21,14 +21,151 @@ var settings = {
 function run_execSync(cmd) {
   execSync(cmd, (err, stdout, stderr) => {
     if (err) {
-      console.log(stderr);
+      console.log(stderr + "\n");
     }
   });
 }
 
 app.post("/run/:process", runProcess);
 
-function runProcess(req, res) {}
+// If a run was already executed it will move those results to the history/ folder
+//  rather than overwriting it
+function createHistory(process) {
+  // capitalize first letter in process name
+  var output_dir = process.charAt(0).toUpperCase() + process.slice(1);
+  // get current time
+  var time = new Date()
+    .toLocaleString()
+    .replace(/ /g, "_")
+    .replace(/\//g, "-")
+    .replace(",", "");
+  if (fs.existsSync(output_dir)) {
+    console.log(
+      "created directory: 'history/" + output_dir + "-" + time + "'\n"
+    );
+    run_execSync(
+      "mv " + output_dir + " 'history/" + output_dir + "-" + time + "'"
+    );
+  }
+}
+
+// Executes the compile process
+function compileProcess() {
+  // sections of the command to be executed:
+  var prompt =
+    "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll compile";
+  var spec = " --api_spec uploads/spec.json";
+  var pipe = " > process_data/compile_process.txt";
+
+  createHistory("compile");
+
+  // join sections of command
+  cmd = prompt + spec + pipe;
+  run_execSync(cmd);
+  console.log("Executed Compile process\n");
+}
+
+// Executes the test process
+function testProcess() {
+  // sections of the command to be executed:
+  var prompt = "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll test";
+  var grammar = " --grammar_file Compile/grammar.py";
+  var dict = " --dictionary_file Compile/dict.json";
+  if (settings["dictPath" != "default"]) {
+    dict = " --dictionary_file " + settings["dictPath"];
+  }
+  var e_settings = " --settings engine_settings.json";
+  var auth_path = __dirname + "/scripts/auth.py";
+  var auth = " --token_refresh_command 'python3 " + auth_path + "'";
+  var refresh = " --token_refresh_interval 86400"; // refresh after 24 hrs
+  var pipe = " > process_data/test_process.txt";
+
+  createHistory("test");
+
+  // join sections of command
+  cmd = prompt + grammar + dict + e_settings + auth + refresh + pipe;
+  run_execSync(cmd);
+  console.log("Executed Test process\n");
+}
+
+// Executes the fuzzlean process
+function fuzzleanProcess() {
+  // sections of the command to be executed:
+  var prompt =
+    "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz-lean";
+  var grammar = " --grammar_file Compile/grammar.py";
+  var dict = " --dictionary_file Compile/dict.json";
+  if (settings["dictPath" != "default"]) {
+    dict = " --dictionary_file " + settings["dictPath"];
+  }
+  var e_settings = " --settings engine_settings.json";
+  var auth_path = __dirname + "/scripts/auth.py";
+  var auth = " --token_refresh_command 'python3 " + auth_path + "'";
+  var refresh = " --token_refresh_interval 86400"; // refresh after 24 hrs
+  var pipe = " > process_data/fuzzlean_process.txt";
+
+  createHistory("fuzzlean");
+
+  // join sections of command
+  cmd = prompt + grammar + dict + e_settings + auth + refresh + pipe;
+  run_execSync(cmd);
+  console.log("Executed Fuzz-lean process\n");
+}
+
+// Executes the fuzz process
+function fuzzProcess() {
+  // sections of the command to be executed:
+  var prompt =
+    "dotnet ~/restler-fuzzer/restler_bin/restler/Restler.dll fuzz-lean";
+  var grammar = " --grammar_file Compile/grammar.py";
+  var dict = " --dictionary_file Compile/dict.json";
+  if (settings["dictPath" != "default"]) {
+    dict = " --dictionary_file " + settings["dictPath"];
+  }
+  var e_settings = " --settings engine_settings.json";
+  var auth_path = __dirname + "/scripts/auth.py";
+  var auth = " --token_refresh_command 'python3 " + auth_path + "'";
+  var refresh = " --token_refresh_interval 86400"; // refresh after 24 hrs
+  var time_limit = "";
+  if (settings["timeLimit"] != "-1") {
+    time_limit = " --time_budget";
+  }
+  var pipe = " > process_data/fuzz_process.txt";
+
+  createHistory("fuzz");
+
+  // join sections of command
+  cmd =
+    prompt + grammar + dict + e_settings + auth + refresh + time_limit + pipe;
+  run_execSync(cmd);
+  console.log("Executed Fuzz process\n");
+}
+
+// Executes a RESTler process based on the one specified in the request
+function runProcess(req, res) {
+  var process = req.params["process"];
+  if (process == "compile") {
+    compileProcess();
+  } else if (process == "test") {
+    testProcess();
+  } else if (process == "fuzzlean") {
+    fuzzleanProcess();
+  } else if (process == "fuzz") {
+    fuzzProcess();
+  } else if (process == "all") {
+    compileProcess();
+    testProcess();
+    fuzzleanProcess();
+    fuzzProcess();
+  } else {
+    console.log("ERROR: Invalid upload type\n");
+  }
+  // Respond to client
+  res.json({
+    stdout: process + " execution successful",
+    stderr: process + " execution failed",
+  });
+}
 
 app.post("/upload/:type/:argument", uploadRequest);
 
